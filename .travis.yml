@@ -14,7 +14,7 @@ matrix:
 
   - language: go
     go:
-      - release
+      - master
     before_install:
       - cd server
     script:
