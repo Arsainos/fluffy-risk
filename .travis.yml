@@ -3,11 +3,11 @@ matrix:
   - language: node_js
     node_js:
       - "stable"
-    cache:
-      directories:
-        - node_modules
-    before_script:
+    before_install:
       - cd client
+    cache: 
+      directories:
+        - client/node_modules
     script:
       - npm test
       - npm run build
