@@ -9,6 +9,7 @@ matrix:
     before_install:
       - cd client
     before_script:
+      - wget -qO- https://toolbelt.heroku.com/install.sh | sh
       - npm install
     cache: 
       directories:
@@ -23,6 +24,11 @@ matrix:
       - docker push $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
       - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:latest
       - docker push $DOCKER_USER/fluffy-risk-client:latest
+      - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
+      - /usr/local/heroku/bin/heroku container:login
+      - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
+      - /usr/local/heroku/bin/heroku container:release web -a fluffy-risk-client
+
 
   - language: go
     go:
