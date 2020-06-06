@@ -3,14 +3,26 @@ matrix:
   - language: node_js
     node_js:
       - "stable"
+    sudo: required
+    services:
+      - docker
     before_install:
       - cd client
+    before_script:
+      - npm install
     cache: 
       directories:
         - client/node_modules
     script:
       - npm test
       - npm run build
+      - docker build -t fluffy-risk-client .
+    after_success:
+      - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
+      - docker push $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
+      - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:latest
+      - docker push $DOCKER_USER/fluffy-risk-client:latest
 
   - language: go
     go:
