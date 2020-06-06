@@ -11,6 +11,15 @@ matrix:
     script:
       - npm test
       - npm run build
+
+  - language: go
+    go:
+      - release
+    before_install:
+      - cd server
+    script:
+      - go test -v ./...
+    
 on:
   branch: development
 notifications:
