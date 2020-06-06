@@ -6,5 +6,5 @@ RUN npm run build
 
 FROM nginx
 WORKDIR /var/www/fluffy-risk-client
-COPY --from=builder /opt/fluffy-risk-client/dist/ .
+COPY --from=builder /opt/fluffy-risk-client/build/ .
 COPY nginx.conf /etc/nginx/
