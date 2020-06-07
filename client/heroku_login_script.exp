@@ -1,9 +1,10 @@
 #!/usr/bin/expect
 set heroku_mail [lindex $argv 0]
 set heroku_password [lindex $argv 1]
+set timeout 120
 spawn heroku login -i
 expect "Email:"
-send $heroku_mail
+send "$heroku_mail\r"
 expect "Password:"
-send $heroku_password
+send "$heroku_password\r"
 expect eof
