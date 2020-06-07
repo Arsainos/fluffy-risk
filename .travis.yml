@@ -27,6 +27,7 @@ matrix:
       - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
       - /usr/local/bin/heroku container:login
       - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
+      - /usr/local/bin/heroku container:push web registry.heroku.com/fluffy-risk-client/web
       - /usr/local/bin/heroku container:release web -a fluffy-risk-client
 
 
