@@ -4,7 +4,9 @@ set heroku_password [lindex $argv 1]
 set timeout -1
 spawn heroku login -i
 expect "Email:"
-send -- "$heroku_mail"
+send $heroku_mail
+send "\r"
 expect "Password:"
-send -- "$heroku_password"
+send $heroku_password
+send "\r"
 interact
