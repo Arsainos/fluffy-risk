@@ -1,10 +1,11 @@
 FROM node AS builder
 WORKDIR /opt/fluffy-risk-client
-COPY . .
+COPY ./package.json ./
 RUN npm install
+COPY . .
 RUN npm run build
 
 FROM nginx
-WORKDIR /var/www/fluffy-risk-client
-COPY --from=builder /opt/fluffy-risk-client/build/ .
-COPY nginx.conf /etc/nginx/
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /opt/fluffy-risk-client/build/ /usr/share/nginx/html
+CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'

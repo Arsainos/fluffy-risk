@@ -11,28 +11,28 @@ matrix:
     before_script:
       - wget -qO- https://cli-assets.heroku.com/install.sh | sh
       - sudo apt-get install expect
+      - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - expect heroku_login_script.exp $HEROKU_CREDENTIALS_EMAIL $HEROKU_CREDENTIALS_PASSWORD
+      - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
       - npm install
     cache: 
       directories:
         - client/node_modules
     script:
       - npm test
-      - npm run build
       - docker build -t fluffy-risk-client .
-    after_success:
-      - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
-      - docker push $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
-      - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:latest
-      - docker push $DOCKER_USER/fluffy-risk-client:latest
-      - docker logout
-      - expect heroku_login_script.exp $HEROKU_CREDENTIALS_EMAIL $HEROKU_CREDENTIALS_PASSWORD
-      - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
-      - heroku container:login
-      - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
-      - docker push registry.heroku.com/fluffy-risk-client/web
-      - heroku container:release web -a fluffy-risk-client
-
+    deploy:
+      provider: script
+      script:
+        # push to dockerhub and heroku
+        - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
+        - docker push $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
+        - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:latest
+        - docker push $DOCKER_USER/fluffy-risk-client:latest
+        - heroku container:login
+        - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
+        - docker push registry.heroku.com/fluffy-risk-client/web
+        - heroku container:release web -a fluffy-risk-client
 
   - language: go
     go:
