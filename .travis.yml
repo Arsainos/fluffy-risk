@@ -30,8 +30,8 @@ matrix:
       - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
       - heroku container:login
       - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
-      - heroku container:push web registry.heroku.com/fluffy-risk-client/web -a fluffy-risk-client
-      - heroku container:release web -a fluffy-risk-client
+      - docker push registry.heroku.com/fluffy-risk-client/web
+      - heroku container:release web
 
 
   - language: go
