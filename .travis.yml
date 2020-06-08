@@ -27,11 +27,11 @@ matrix:
       - docker push $DOCKER_USER/fluffy-risk-client:latest
       - docker logout
       - expect heroku_login_script.exp $HEROKU_CREDENTIALS_EMAIL $HEROKU_CREDENTIALS_PASSWORD
-      - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
-      - /usr/local/bin/heroku container:login
+      - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+      - heroku container:login
       - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
-      - /usr/local/bin/heroku container:push web registry.heroku.com/fluffy-risk-client/web
-      - /usr/local/bin/heroku container:release web -a fluffy-risk-client
+      - heroku container:push web registry.heroku.com/fluffy-risk-client/web -a fluffy-risk-client
+      - heroku container:release web -a fluffy-risk-client
 
 
   - language: go
