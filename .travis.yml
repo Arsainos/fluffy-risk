@@ -21,21 +21,16 @@ matrix:
     script:
       - npm test
       - docker build -t fluffy-risk-client .
-    deploy:
-      provider: script
-      skip_cleanup: true
-      script:
-        # push to dockerhub and heroku
-        - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
-        - docker push $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
-        - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:latest
-        - docker push $DOCKER_USER/fluffy-risk-client:latest
-        - heroku container:login
-        - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
-        - docker push registry.heroku.com/fluffy-risk-client/web
-        - heroku container:release web -a fluffy-risk-client
-      on:
-        bracnh: development
+    after_success:
+      # push to dockerhub and heroku
+      - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
+      - docker push $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
+      - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:latest
+      - docker push $DOCKER_USER/fluffy-risk-client:latest
+      - heroku container:login
+      - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
+      - docker push registry.heroku.com/fluffy-risk-client/web
+      - heroku container:release web -a fluffy-risk-client
 
   - language: go
     go:
