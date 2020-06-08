@@ -23,6 +23,7 @@ matrix:
       - docker build -t fluffy-risk-client .
     deploy:
       provider: script
+      skip_cleanup: true
       script:
         # push to dockerhub and heroku
         - docker tag fluffy-risk-client $DOCKER_USER/fluffy-risk-client:$TRAVIS_BUILD_NUMBER
@@ -35,7 +36,7 @@ matrix:
         - heroku container:release web -a fluffy-risk-client
       on:
         bracnh: development
-        
+
   - language: go
     go:
       - master
