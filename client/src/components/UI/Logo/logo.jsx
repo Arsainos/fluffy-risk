@@ -4,7 +4,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 // import images
-import pawLogo from '../../assets/logo/material_feet.png';
+import pawLogo from '../../../assets/logo/material_feet.png';
 
 // styles for component
 const useStyles = makeStyles((theme) => ({
@@ -12,8 +12,10 @@ const useStyles = makeStyles((theme) => ({
         height: props.imageHeight,
         width: props.imageWidth,
         padding: theme.spacing(1, 1, 1, 0),
+        display: 'block',
         [theme.breakpoints.down('sm')]: {
-            height: props.isAppBarLogo ? '46px' : props.imageHeight
+            height: props.isAppBarLogo ? '46px' : props.imageHeight,
+            display: props.isAppBarLogo ? 'none' : 'block'
         }
     }),
     image: {
