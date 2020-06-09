@@ -1,4 +1,6 @@
 import React from 'react';
+
+// import functions and components if material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,12 +10,19 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+// import project components
+import Logo from '../Logo/logo';
+
+// style of component
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    [theme.breakpoints.up('xl')]: {
+        display: 'none'
+    }
   },
   title: {
     flexGrow: 1,
@@ -45,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  appBar: {
+    [theme.breakpoints.down('sm')]: {
+        top: 'auto',
+        bottom: 0,
+    }
+  },
   inputRoot: {
     color: 'inherit',
   },
@@ -60,6 +75,24 @@ const useStyles = makeStyles((theme) => ({
         width: '20ch',
       },
     },
+    [theme.breakpoints.up('md')]: {
+        width: '20ch',
+        '&:focus': {
+            width: '30ch',
+        },
+    },
+    [theme.breakpoints.up('lg')]: {
+        width: '30ch',
+        '&:focus': {
+            width: '40ch',
+        },
+    },
+    [theme.breakpoints.up('xl')]: {
+        width: '40ch',
+        '&:focus': {
+            width: '50ch',
+        },
+    }
   },
 }));
 
@@ -68,7 +101,7 @@ export default function SearchAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -78,6 +111,7 @@ export default function SearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
+          <Logo imageHeight="56px" imageWidth="auto" isAppBarLogo/>
           <Typography className={classes.title} variant="h6" noWrap>
             Fluffy Risk
           </Typography>
