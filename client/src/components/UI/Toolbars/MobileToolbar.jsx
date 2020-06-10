@@ -10,6 +10,12 @@ import NotificationIcon from '@material-ui/icons/Notifications';
 import MessagesIcon from '@material-ui/icons/Message';
 import PetsIcon from '@material-ui/icons/Pets';
 
+// import components
+import Drawer from '../Drawer/drawer';
+
+// import custom hooks
+import useDrawer from '../../../Hooks/useDrawer/useDrawer';
+
 // style of component
 const useStyles = makeStyles((theme) => ({
   homeIcon: {
@@ -63,13 +69,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const MobileToolbarDrawerType = 'bottom';
+
 export default function MobileToolbar() {
     const classes = useStyles();
+    const {isOpen, toggleDrawer} = useDrawer(MobileToolbarDrawerType);
 
     return (
       <Toolbar className={classes.mobileToolbar}>
         <div className={classes.ribbonPanel} >
-          <Fab color="secondary" aria-label="open-menu" className={classes.fabButton} size="large">
+          <Fab color="secondary" aria-label="open-menu" className={classes.fabButton} size="large" onClick={toggleDrawer(MobileToolbarDrawerType, true)}>
             <PetsIcon />
           </Fab>
           <HomeIcon className={classes.homeIcon} />
@@ -77,6 +86,7 @@ export default function MobileToolbar() {
           <MessagesIcon className={classes.messagesIcon} />
           <SearchIcon className={classes.searchIcon} />            
         </div>
-      </Toolbar>
+        <Drawer drawerType={MobileToolbarDrawerType} open={isOpen[MobileToolbarDrawerType]} onDrawerToogle={toggleDrawer}/>
+      </Toolbar>      
     )
 }

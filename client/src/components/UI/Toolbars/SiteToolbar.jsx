@@ -11,6 +11,10 @@ import SearchIcon from '@material-ui/icons/Search';
 
 // import project components
 import Logo from '../Logo/logo';
+import Drawer from '../Drawer/drawer';
+
+// import custom hooks
+import useDrawer from '../../../Hooks/useDrawer/useDrawer';
 
 // style of component
 const useStyles = makeStyles((theme) => ({
@@ -94,11 +98,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             display: 'none'
         }
-    }
+    },
 }));
+
+const SiteToolbarDrawerType = 'left';
 
 export default function SiteToolbar() {
     const classes = useStyles();
+    const {isOpen, toggleDrawer} = useDrawer(SiteToolbarDrawerType);
     
     return (
         <Toolbar className={classes.siteToolbar}>
@@ -107,6 +114,7 @@ export default function SiteToolbar() {
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="open drawer"
+                onClick={toggleDrawer(SiteToolbarDrawerType, true)}
             >
             <MenuIcon />
             </IconButton>
@@ -130,6 +138,7 @@ export default function SiteToolbar() {
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </div>
-        </Toolbar>
+            <Drawer className={classes.drawer} drawerType={SiteToolbarDrawerType} open={isOpen[SiteToolbarDrawerType]} onDrawerToogle={toggleDrawer}/>
+        </Toolbar>      
     )
 }
