@@ -14,15 +14,12 @@ import Logo from '../Logo/logo';
 
 // style of component
 const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
     menuButton: {
       marginRight: theme.spacing(2),
       [theme.breakpoints.up('xl')]: {
           display: 'none'
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
           display: 'none'
       }
     },
@@ -46,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
           marginLeft: theme.spacing(1),
           width: 'auto',
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
           display: 'none'
       }
     },
@@ -58,12 +55,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    appBar: {
-      [theme.breakpoints.down('sm')]: {
-          top: 'auto',
-          bottom: 0,
-      }
     },
     inputRoot: {
       color: 'inherit',
@@ -100,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     siteToolbar: {
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
             display: 'none'
         }
     }
