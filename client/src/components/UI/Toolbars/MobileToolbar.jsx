@@ -10,12 +10,6 @@ import NotificationIcon from '@material-ui/icons/Notifications';
 import MessagesIcon from '@material-ui/icons/Message';
 import PetsIcon from '@material-ui/icons/Pets';
 
-// import components
-import Drawer from '../Drawer/drawer';
-
-// import custom hooks
-import useDrawer from '../../../Hooks/useDrawer/useDrawer';
-
 // style of component
 const useStyles = makeStyles((theme) => ({
   homeIcon: {
@@ -25,14 +19,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   notificationIcon: {
-    padding: theme.spacing(0, 6, 0, 0),
+    marginRight: '3ch',
     textAlign: 'left',
     [theme.breakpoints.up('sm')]: {
         display: 'none',
     },
   },
   messagesIcon: {
-    padding: theme.spacing(0, 0, 0, 6),
+    marginLeft: '3ch',
     textAlign: 'left',
     [theme.breakpoints.up('sm')]: {
         display: 'none',
@@ -69,16 +63,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MobileToolbarDrawerType = 'bottom';
-
-export default function MobileToolbar() {
+export default function MobileToolbar({ToogleDrawlerClick}) {
     const classes = useStyles();
-    const {isOpen, toggleDrawer} = useDrawer(MobileToolbarDrawerType);
 
     return (
       <Toolbar className={classes.mobileToolbar}>
         <div className={classes.ribbonPanel} >
-          <Fab color="secondary" aria-label="open-menu" className={classes.fabButton} size="large" onClick={toggleDrawer(MobileToolbarDrawerType, true)}>
+          <Fab color="secondary" aria-label="open-menu" className={classes.fabButton} size="large" onClick={ToogleDrawlerClick()}>
             <PetsIcon />
           </Fab>
           <HomeIcon className={classes.homeIcon} />
@@ -86,7 +77,6 @@ export default function MobileToolbar() {
           <MessagesIcon className={classes.messagesIcon} />
           <SearchIcon className={classes.searchIcon} />            
         </div>
-        <Drawer drawerType={MobileToolbarDrawerType} open={isOpen[MobileToolbarDrawerType]} onDrawerToogle={toggleDrawer}/>
       </Toolbar>      
     )
 }

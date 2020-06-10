@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Drawer({open, drawerType, onDrawerToogle}) {
+export default function Drawer({open, drawerType, onDrawerToogle, drawerClassName, drawerClasses, variantType}) {
     const classes = useStyles();
 
     const list = (anchor) => (
@@ -57,15 +57,16 @@ export default function Drawer({open, drawerType, onDrawerToogle}) {
     );
 
     return (
-        <div>
-            <SwipeableDrawer 
-                anchor={drawerType} 
-                open={open} 
-                onClose={onDrawerToogle(drawerType, false)}
-                onOpen={onDrawerToogle(drawerType, true)}
-                >
-                    {list(drawerType)}
-            </SwipeableDrawer>
-        </div>
+        <SwipeableDrawer 
+            className={drawerClassName}
+            classes={drawerClasses}
+            anchor={drawerType} 
+            open={open} 
+            variant={variantType}
+            onClose={onDrawerToogle(drawerType, false)}
+            onOpen={onDrawerToogle(drawerType, true)}
+            >
+                {list(drawerType)}
+        </SwipeableDrawer>
     );
 }

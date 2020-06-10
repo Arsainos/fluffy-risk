@@ -10,26 +10,20 @@ import MobileToolbar from '../UI/Toolbars/MobileToolbar';
 
 // style of component
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   appBar: {
+    zIndex: 2000,
     [theme.breakpoints.down('xs')]: {
         top: 'auto',
         bottom: 0,
-    }
-  },
+    }},
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({windowSize, ToogleDrawlerClick}) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-        <AppBar position="fixed" className={classes.appBar}>
-            <SiteToolbar />
-            <MobileToolbar />
-        </AppBar>
-    </div>
+    <AppBar position="fixed" className={classes.appBar}>
+      {windowSize.width < 600 ? <MobileToolbar ToogleDrawlerClick={ToogleDrawlerClick} /> : <SiteToolbar ToogleDrawlerClick={ToogleDrawlerClick} />}                      
+    </AppBar>
   );
 }
