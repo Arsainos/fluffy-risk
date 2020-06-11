@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // import components
 import AppBar from '../AppBar/AppBar';
 import Drawer from '../UI/Drawer/drawer';
+import TreeViewDrawer from '../UI/TreeView/treeView';
 
 // import custom hooks
 import useDrawer from '../../Hooks/useDrawer/useDrawer';
@@ -25,9 +26,11 @@ const useStyles = makeStyles((theme, size) => ({
         flexShrink: 0, 
     }),
       drawerPaper: size => ({
-        width: 'auto',
+        width: size.width > Mobile ? '250px' : 'auto',
         marginBottom: size.width <= Mobile ? '56px' : '0',
-        marginTop: size.width > Mobile ? '64px' : '0'
+        marginTop: size.width > Mobile ? '64px' : '0',
+        paddingTop: size.width > Mobile ? '18px' : '9px',
+        top: size.width > Mobile ? 'auto' : '30%',
     }),
     content: size => ({
         flexGrow: 1,
@@ -62,6 +65,7 @@ export default function Layout() {
                 variantType={size.width >= FullHD ? 'permanent' : null}
                 drawerClassName={classes.drawer}
                 drawerClasses={{paper: classes.drawerPaper}}
+                drawerContent={<TreeViewDrawer />}
             />
             <main className={classes.content}>
                 <p>Hello World!</p>
