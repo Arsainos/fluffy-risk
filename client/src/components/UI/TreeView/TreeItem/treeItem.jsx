@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// router imports
+import { Link as RouterLink } from 'react-router-dom';
+
 // import components and functions from material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import TreeItem from '@material-ui/lab/TreeItem';
@@ -57,40 +60,45 @@ const useTreeItemStyles = makeStyles((theme) => ({
       flexGrow: 1,
       fontSize: '1rem'
     },
+    routerLink: {
+      textDecoration: 'none'
+    }
 }));
 
 export default function StyledTreeItem(props) {
-    const classes = useTreeItemStyles();
-    const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, ...other } = props;
-  
-    return (
-      <TreeItem
-        label={
-            <div className={classes.labelRoot}>
-                <LabelIcon color="inherit" className={classes.labelIcon} />
-                <Typography variant="body2" className={classes.labelText}>
-                    {labelText}
-                </Typography>
-                <Typography variant="caption" color="inherit">
-                    {labelInfo}
-                </Typography>
-            </div>
-        }
-        style={{
-          '--tree-view-color': color,
-          '--tree-view-bg-color': bgColor,
-        }}
-        classes={{
-            root: classes.root,
-            content: classes.content,
-            expanded: classes.expanded,
-            selected: classes.selected,
-            group: classes.group,
-            label: classes.label,
-        }}
-        {...other}
-      />
-    );
+  const classes = useTreeItemStyles();
+  const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, to, ...other } = props;
+
+  return (
+      <RouterLink to={to} className={classes.routerLink}>
+        <TreeItem
+          label={
+              <div className={classes.labelRoot}>
+                  <LabelIcon color="inherit" className={classes.labelIcon} />
+                  <Typography variant="body2" className={classes.labelText}>
+                      {labelText}
+                  </Typography>
+                  <Typography variant="caption" color="inherit">
+                      {labelInfo}
+                  </Typography>
+              </div>
+          }
+          style={{
+            '--tree-view-color': color,
+            '--tree-view-bg-color': bgColor,
+          }}
+          classes={{
+              root: classes.root,
+              content: classes.content,
+              expanded: classes.expanded,
+              selected: classes.selected,
+              group: classes.group,
+              label: classes.label,
+          }}
+          {...other}
+        />
+      </RouterLink>
+  );
 }
   
 StyledTreeItem.propTypes = {
@@ -99,5 +107,6 @@ StyledTreeItem.propTypes = {
     labelIcon: PropTypes.elementType.isRequired,
     labelInfo: PropTypes.string,
     labelText: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
 };   
 

@@ -35,13 +35,15 @@ const data = [{
   id: 'ranks',
   name: 'Рейтингование',
   labelIcon: AssignmentIndIcon,
+  to:'/ranks',
   children: [
     {
       id: 'createRank',
       name: 'Создать анкету',
       labelIcon: NoteAddIcon,
       color:"#1a73e8",
-      bgColor:"#e8f0fe"
+      bgColor:"#e8f0fe",
+      to:'/ranks/createRank'
     },
     {
       id: 'myRanks',
@@ -49,6 +51,7 @@ const data = [{
       labelIcon: PersonIcon,
       color:"#a250f5",
       bgColor:"#f3e8fd",
+      to:'/ranks/myRanks'
     },
     {
       id: 'ranksForGroups',
@@ -56,12 +59,14 @@ const data = [{
       labelIcon: SupervisorAccountIcon,
       color:"#3c8039",
       bgColor:"#e6f4ea",
+      to:'/ranks/groupRanks'
     }
   ],
 },
 {
   id:'srp',
   name: 'СРП',
+  to:'/Srp',
   labelIcon: WorkIcon,
   children: [
     {
@@ -69,7 +74,8 @@ const data = [{
       name: 'Мониторинг клиентов',
       labelIcon: AccountBalanceIcon,
       color:"#1a73e8",
-      bgColor:"#e8f0fe"
+      bgColor:"#e8f0fe",
+      to:'/Srp/clientMonitoring',
     },
     {
       id: 'signals',
@@ -77,12 +83,14 @@ const data = [{
       labelIcon: BeachAccessIcon,
       color:"#a250f5",
       bgColor:"#f3e8fd",
+      to:'/Srp/clientsSignals',
     }
   ]
 },
 {
   id: 'clients',
   name: 'Клиенты',
+  to:'/Clients',
   labelIcon: AccessibleIcon,
   children: [
     {
@@ -90,7 +98,8 @@ const data = [{
       name: 'Новый клиент',
       labelIcon: PersonAddIcon,
       color:"#1a73e8",
-      bgColor:"#e8f0fe"
+      bgColor:"#e8f0fe",
+      to:'/Clients/newClient',
     },
     {
       id: 'allClients',
@@ -98,20 +107,22 @@ const data = [{
       labelIcon: PeopleIcon,
       color:"#a250f5",
       bgColor:"#f3e8fd",
+      to:'/Clients/allClients',
     }
   ]
 },
 {
   id: 'users',
   name: 'Пользователи',
-  labelIcon: FitnessCenterIcon
+  labelIcon: FitnessCenterIcon,
+  to:'/Users',
 }];
 
 export default function RecursiveTreeView() {
     const classes = useStyles();
   
     const renderTreeItem = (nodes) => (
-      <StyledTreeItem key={nodes.id} nodeId={nodes.id} labelText={nodes.name} labelIcon={nodes.labelIcon} color={nodes.color} bgColor={nodes.bgColor}>
+      <StyledTreeItem key={nodes.id} nodeId={nodes.id} labelText={nodes.name} labelIcon={nodes.labelIcon} color={nodes.color} bgColor={nodes.bgColor} to={nodes.to}>
           {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTreeItem(node)) : null}
       </StyledTreeItem>
     );
