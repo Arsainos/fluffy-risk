@@ -4,15 +4,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
-// import components
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 // component styles
 const useStyles = makeStyles({
@@ -24,36 +16,20 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Drawer({open, drawerType, onDrawerToogle, drawerClassName, drawerClasses, variantType}) {
-    const classes = useStyles();
+export default function Drawer({open, drawerType, onDrawerToogle, drawerClassName, drawerClasses, variantType, drawerContent}) {
+    const classes = useStyles();  
 
-    const list = (anchor) => (
-        <div
-          className={clsx(classes.list, {
-            [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-          })}
-          role="presentation"
-          onClick={onDrawerToogle(anchor, false)}
-          onKeyDown={onDrawerToogle(anchor, false)}
-        >
-        <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-            </ListItem>
-            ))}
-        </List>
-        <Divider />
-        <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-            </ListItem>
-            ))}
-        </List>
-        </div>
+    const list = (anchor, content) => (
+        <ClickAwayListener onClickAway={onDrawerToogle(anchor, false)}>
+            <div
+            className={clsx(classes.list, {
+                [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+            })}
+            role="presentation"
+            >
+                {content}
+            </div>
+        </ClickAwayListener>
     );
 
     return (
@@ -65,8 +41,8 @@ export default function Drawer({open, drawerType, onDrawerToogle, drawerClassNam
             variant={variantType}
             onClose={onDrawerToogle(drawerType, false)}
             onOpen={onDrawerToogle(drawerType, true)}
-            >
-                {list(drawerType)}
+        >
+            {list(drawerType, drawerContent)}
         </SwipeableDrawer>
     );
 }
