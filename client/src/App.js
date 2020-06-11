@@ -15,12 +15,12 @@ function App() {
   return (
     <Layout>
         <Suspense fallback={Spinner}>
-          <React.Fragment>
-            <Ranking />
-            <Srp />
-            <Clients />
-            <Users />
-          </React.Fragment>
+          <Switch>
+            <Route path="/Ranks" component={Ranking} />
+            <Route path="/Clients" component={Clients} />
+            <Route path="/Srp" component={Srp} />
+            <Route path="/Users" component={Users} />
+          </Switch>
         </Suspense>
     </Layout>
   );
