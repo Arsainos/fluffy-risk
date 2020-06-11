@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme, size) => ({
         zIndex: theme.zIndex.drawer + 1,
     },
     drawer: size => ({
-        width: size.width > Mobile ? '250px' : 'auto',
+        width: size.width > Mobile ? '300px' : 'auto',
         flexShrink: 0, 
     }),
       drawerPaper: size => ({
-        width: size.width > Mobile ? '250px' : 'auto',
+        width: size.width > Mobile ? '300px' : 'auto',
         marginBottom: size.width <= Mobile ? '56px' : '0',
         marginTop: size.width > Mobile ? '64px' : '0',
         paddingTop: size.width > Mobile ? '18px' : '9px',

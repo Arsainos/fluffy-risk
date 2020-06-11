@@ -25,9 +25,9 @@ import StyledTreeItem from './TreeItem/treeItem';
 // styles for components
 const useStyles = makeStyles({
   root: {
-    height: 110,
     flexGrow: 1,
-    maxWidth: 400,
+    maxWidth: '600px',
+    boxSizing: 'initial'
   },
 });
 

@@ -50,10 +50,12 @@ const useTreeItemStyles = makeStyles((theme) => ({
     },
     labelIcon: {
       marginRight: theme.spacing(1),
+      fontSize: '2rem'
     },
     labelText: {
       fontWeight: 'inherit',
       flexGrow: 1,
+      fontSize: '1rem'
     },
 }));
 

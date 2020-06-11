@@ -9,7 +9,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 // component styles
 const useStyles = makeStyles({
     list: {
-        width: 250,
+        width: 300,
     },
     fullList: {
         width: 'auto',
