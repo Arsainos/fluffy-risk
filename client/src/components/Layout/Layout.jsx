@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme, size) => ({
         marginTop: size.width > Mobile ? '64px' : '0',
         paddingTop: size.width > Mobile ? '18px' : '9px',
         top: size.width > Mobile ? 'auto' : '30%',
+        height: '100%'
     }),
     content: size => ({
         flexGrow: 1,
