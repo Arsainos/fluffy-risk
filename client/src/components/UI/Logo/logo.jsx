@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         width: props.imageWidth,
         padding: theme.spacing(1, 1, 1, 0),
         display: 'block',
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
             height: props.isAppBarLogo ? '46px' : props.imageHeight,
             display: props.isAppBarLogo ? 'none' : 'block'
         }
