@@ -13,6 +13,9 @@ import TreeViewDrawer from '../UI/TreeView/treeView';
 import useDrawer from '../../Hooks/useDrawer/useDrawer';
 import useWindowSize from '../../Hooks/useWindowSize/useWindowSize';
 
+// import data
+import { TreeViewData } from '../../Routes/routeLinks';
+
 // style of component
 const useStyles = makeStyles((theme, size) => ({
     root: {
@@ -66,7 +69,7 @@ export default function Layout(props) {
                 variantType={size.width >= FullHD ? 'permanent' : null}
                 drawerClassName={classes.drawer}
                 drawerClasses={{paper: classes.drawerPaper}}
-                drawerContent={<TreeViewDrawer />}
+                drawerContent={<TreeViewDrawer TreeViewData={TreeViewData} />}
             />
             <main className={classes.content}>
                 {props.children}
