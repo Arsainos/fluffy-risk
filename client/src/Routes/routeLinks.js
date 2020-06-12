@@ -11,6 +11,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import HomeIcon from '@material-ui/icons/Home';
+import FaceIcon from '@material-ui/icons/Face';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 export const TreeViewData = [
     {
@@ -96,7 +99,7 @@ export const TreeViewData = [
         color:"#a250f5",
         bgColor:"#f3e8fd",
         to:'/Clients/allClients',
-      }
+      },
     ]
   },
   {
@@ -104,4 +107,30 @@ export const TreeViewData = [
     name: 'Пользователи',
     labelIcon: FitnessCenterIcon,
     to:'/Users',
+    children: [
+        {
+            id: 'myProfile',
+            name: 'Мой профиль',
+            labelIcon: FaceIcon,           
+            color:"#a250f5",
+            bgColor:"#f3e8fd",
+            to: '/Users/account',
+        },
+        {
+            id: 'myGroup',
+            name: 'Группы пользователей',
+            labelIcon: GroupWorkIcon,
+            color:"#3c8039",
+            bgColor:"#e6f4ea",
+            to: '/Users/usersByGroup',
+        },
+        {
+            id: 'allUsers',
+            name: 'Все пользователи',
+            labelIcon: PeopleOutlineIcon,
+            color:"#1a73e8",
+            bgColor:"#e8f0fe",
+            to:'/Users/allUsers',
+        }
+    ]
   }];
