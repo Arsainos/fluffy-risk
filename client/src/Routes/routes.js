@@ -7,16 +7,18 @@ const Clients = lazy(() => import('../containers/Clients/clients'));
 const Ranking = lazy(() => import('../containers/Ranking/ranking'));
 const Srp = lazy(() => import('../containers/SRP/srp'));
 const Users = lazy(() => import('../containers/Users/users'));
+const PageNotFound = lazy(() => import('../containers/404/404'));
 
 export default function Routes() {
-    return(
+    return(   
         <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/Home" component={Home} />
             <Route path="/Ranks" component={Ranking} />
             <Route path="/Clients" component={Clients} />
             <Route path="/Srp" component={Srp} />
-            <Route path="/Users" component={Users} />
-        </Switch>
+            <Route path="/Users" component={Users} /> 
+            <Route component={PageNotFound} />
+        </Switch>       
     )
 };

@@ -7,11 +7,12 @@ import Spinner from './components/UI/Spinner/spinner';
 import Routes from './Routes/routes';
 
 function App() {
+  
   return (
     <Layout>
-        <Suspense fallback={Spinner}>
-          <Routes />
-        </Suspense>
+      <Suspense fallback={Spinner}>
+        <Routes />
+      </Suspense>
     </Layout>
   );
 }
