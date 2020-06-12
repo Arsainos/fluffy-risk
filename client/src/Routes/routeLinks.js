@@ -10,8 +10,16 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PeopleIcon from '@material-ui/icons/People';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import HomeIcon from '@material-ui/icons/Home';
 
-export const TreeViewData = [{
+export const TreeViewData = [
+    {
+    id: 'mainPage',
+    name: 'Главная страница',
+    labelIcon: HomeIcon,
+    to:'/Home'
+    },
+    {
     id: 'ranks',
     name: 'Рейтингование',
     labelIcon: AssignmentIndIcon,
