@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme, size) => ({
         height: '100%'
     }),
     content: size => ({
+        position: 'relative',
         flexGrow: 1,
         padding: size.width > Mobile ? theme.spacing(9,3,3,3) : theme.spacing(3)
     }),
