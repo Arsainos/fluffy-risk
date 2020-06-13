@@ -19,7 +19,9 @@ export default function Routes() {
             <Route path="/Srp" component={Srp} />
             <Route path="/Users" component={Users} />
             <Route path="/404" component={PageNotFound} />
-            <Route path="*" component={<Redirect to="/404" />} />
+            <Route path="*">
+                <Redirect to="/404" />
+            </Route>
         </Switch>       
     )
 };

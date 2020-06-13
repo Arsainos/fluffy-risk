@@ -1,18 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // import componenst
 import AuthProvider from './Providers/AuthProvider/authProvider';
+import SignInPage from './containers/Auth/auth';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <Switch>
+          <Route path="/signin">
+            <SignInPage />
+          </Route>
+          <Route>
+            <App />
+          </Route>
+        </Switch>        
       </AuthProvider>
     </BrowserRouter>   
   </React.StrictMode>,

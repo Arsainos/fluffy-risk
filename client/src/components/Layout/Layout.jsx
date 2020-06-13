@@ -49,7 +49,7 @@ const SiteToolbarDrawerType = 'left';
 const FullHD = 1080;
 const Mobile = 600;
 
-export default function Layout(props) {  
+export default function Layout(props) {
     const {isOpen, toggleDrawer} = useDrawer(SiteToolbarDrawerType);
     const size = useWindowSize();
     const drawerType = size.width <= Mobile ? MobileToolbarDrawerType : SiteToolbarDrawerType;
