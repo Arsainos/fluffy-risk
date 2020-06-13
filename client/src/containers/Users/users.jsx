@@ -1,9 +1,13 @@
 import React from 'react';
 
+// import routes for nested pages
+import {UserRoutes as Routes} from '../../Routes/routes';
+
 export default function Users() {
     return (
-        <div>
+        <React.Fragment>
             <h1>Пользователи</h1>
-        </div>
+            <Routes />
+        </React.Fragment>
     )
 }
