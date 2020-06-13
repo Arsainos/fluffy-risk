@@ -1,5 +1,4 @@
-import React, { lazy, Suspense } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React, { Suspense } from 'react';
 
 // import components
 import Layout from './components/Layout/Layout';
@@ -9,11 +8,13 @@ import Routes from './Routes/routes';
 function App() {
   
   return (
-    <Layout>
-      <Suspense fallback={Spinner}>
-        <Routes />
-      </Suspense>
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Suspense fallback={Spinner}>
+          <Routes />
+        </Suspense>
+      </Layout>
+    </AuthProvider>
   );
 }
 
