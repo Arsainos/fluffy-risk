@@ -8,13 +8,11 @@ import Routes from './Routes/routes';
 function App() {
   
   return (
-    <AuthProvider>
-      <Layout>
-        <Suspense fallback={Spinner}>
-          <Routes />
-        </Suspense>
-      </Layout>
-    </AuthProvider>
+    <Layout>
+      <Suspense fallback={Spinner}>
+        <Routes />
+      </Suspense>
+    </Layout>
   );
 }
 

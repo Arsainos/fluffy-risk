@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function useAuthProvider() {
     const [user, setUser] = useState(null);
@@ -7,7 +7,7 @@ export default function useAuthProvider() {
   // just use admin/admin for testing
   const signin = (email, password) => {
     if(email === 'admin' && password === 'admin') {
-        setUser({id:1, name:admin});
+        setUser({id:1, name:'admin'});
     } else {
         setUser(false);
     }
