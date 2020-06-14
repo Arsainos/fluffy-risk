@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import useRouter from '../useRouter/useRouter';
 
@@ -12,6 +12,7 @@ export default function useAuthProvider() {
   const signin = (email, password) => {
     if(email === 'admin' && password === 'admin') {
         setUser({id:1, name:'admin'});
+        sessionStorage.setItem('token','123456');
         setError(null);
         router.push('/Home');
     } else {
@@ -23,6 +24,7 @@ export default function useAuthProvider() {
   const ldapSignin = (domain, user, password) => {
     if(domain === 'test' && user === 'admin' && password === 'admin') {
       setUser({id:1, name:'admin'});
+      sessionStorage.setItem('token','123456');
       setError(null);
       router.push('/Home');
     } else {
@@ -48,11 +50,27 @@ export default function useAuthProvider() {
   const confirmPasswordReset = (code, password) => {
     return true;
   };
+
+  const checkSignin = () => {
+    const token = sessionStorage.getItem('token'); 
+    if(token) {
+        if(user === null || user === false) {
+          setUser({id:1, name:'admin'});
+          return true;
+        }
+    } else {
+      setUser(false);
+      return false;
+    }
+
+    return true;
+  };
   
   // Return the user object and auth methods
   return {
     user,
     error,
+    checkSignin,
     signin,
     ldapSignin,
     signup,

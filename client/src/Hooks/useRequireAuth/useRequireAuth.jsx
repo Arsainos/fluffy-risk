@@ -1,17 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import useAuth from '../useAuth/useAuth';
 import useRouter from '../useRouter/useRouter';
 
 export default function useRequireAuth(redirectUrl = '/signin') {
-    const auth = useAuth();
+    const auth = useAuth(); 
     const router = useRouter();
 
     useEffect(() => {
-        if (auth.user === false || auth.user === null){
-            router.push(redirectUrl);
+        if(!auth.checkSignin())
+        {
+            return router.push(redirectUrl);
         }
-    }, [auth, router]);
-        
-      return auth;
+    }, [])
+
+    return {
+        auth
+    };
 }
