@@ -1,9 +1,10 @@
 import React from 'react';
 
+// import components
+import Client from '../Client/client';
+
 export default function CreateClient() {
     return (
-        <div>
-            <h1>Создание нового клиента</h1>
-        </div>
+        <Client type={'create'} />
     )
 }
