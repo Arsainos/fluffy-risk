@@ -1,4 +1,3 @@
-import React, {useMemo} from 'react';
 import { useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -8,10 +7,6 @@ export default function useRouter() {
     const history = useHistory();
     const match = useRouteMatch();
   
-    // Return our custom router object
-    // Memoize so that a new object is only returned if something changes
-    // return useMemo(() => {
-    //   , [params, match, location, history]);
     return {
       // For convenience add push(), replace(), pathname at top level
       push: history.push,

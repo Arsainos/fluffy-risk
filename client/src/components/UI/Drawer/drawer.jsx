@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // import components and functions from material-ui
 import clsx from 'clsx';

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 import useAuth from '../useAuth/useAuth';
 import useRouter from '../useRouter/useRouter';

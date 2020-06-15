@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 export default function useDrawer(drawerType) {
-    const [isOpen, setState] = React.useState({
+    const [isOpen, setState] = useState({
         bottom: false,
         left: false
     });

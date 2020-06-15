@@ -87,7 +87,7 @@ export default function PageNotFound() {
     
     return (
         <React.Fragment>
-            <svg className={classes.svgIcons} viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/1999/xlink" xmlns="http://www.bohemiancoding.com/sketch/ns">
+            <svg className={classes.svgIcons} viewBox="0 0 837 1045" version="1.1" xmlns="http://www.bohemiancoding.com/sketch/ns">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <path className={classes.polygon1} d="M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z" stroke="#007FB2" strokeWidth="6" type="MSShapeGroup" />
                     <path className={classes.polygon2} d="M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z" stroke="#EF4A5B" strokeWidth="6" type="MSShapeGroup" />
