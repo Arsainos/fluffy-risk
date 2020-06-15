@@ -26,7 +26,6 @@ export const TreeViewData = [
     id: 'ranks',
     name: 'Рейтингование',
     labelIcon: AssignmentIndIcon,
-    to:'/ranks',
     children: [
       {
         id: 'createRank',
@@ -57,7 +56,6 @@ export const TreeViewData = [
   {
     id:'srp',
     name: 'СРП',
-    to:'/Srp',
     labelIcon: WorkIcon,
     children: [
       {
@@ -81,7 +79,6 @@ export const TreeViewData = [
   {
     id: 'clients',
     name: 'Клиенты',
-    to:'/Clients',
     labelIcon: AccessibleIcon,
     children: [
       {
@@ -106,7 +103,6 @@ export const TreeViewData = [
     id: 'users',
     name: 'Пользователи',
     labelIcon: FitnessCenterIcon,
-    to:'/Users',
     children: [
         {
             id: 'myProfile',

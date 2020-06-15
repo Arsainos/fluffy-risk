@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 // router imports
@@ -69,36 +69,48 @@ export default function StyledTreeItem(props) {
   const classes = useTreeItemStyles();
   const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, to, ...other } = props;
 
-  return (
+  const content = (
+    <TreeItem
+      label={
+          <div className={classes.labelRoot}>
+              <LabelIcon color="inherit" className={classes.labelIcon} />
+              <Typography variant="body2" className={classes.labelText}>
+                  {labelText}
+              </Typography>
+              <Typography variant="caption" color="inherit">
+                  {labelInfo}
+              </Typography>
+          </div>
+      }
+      style={{
+        '--tree-view-color': color,
+        '--tree-view-bg-color': bgColor,
+      }}
+      classes={{
+          root: classes.root,
+          content: classes.content,
+          expanded: classes.expanded,
+          selected: classes.selected,
+          group: classes.group,
+          label: classes.label,
+      }}
+      {...other}
+    />
+  )
+
+  if(to) {
+    return (
       <RouterLink to={to} className={classes.routerLink}>
-        <TreeItem
-          label={
-              <div className={classes.labelRoot}>
-                  <LabelIcon color="inherit" className={classes.labelIcon} />
-                  <Typography variant="body2" className={classes.labelText}>
-                      {labelText}
-                  </Typography>
-                  <Typography variant="caption" color="inherit">
-                      {labelInfo}
-                  </Typography>
-              </div>
-          }
-          style={{
-            '--tree-view-color': color,
-            '--tree-view-bg-color': bgColor,
-          }}
-          classes={{
-              root: classes.root,
-              content: classes.content,
-              expanded: classes.expanded,
-              selected: classes.selected,
-              group: classes.group,
-              label: classes.label,
-          }}
-          {...other}
-        />
+        {content}
       </RouterLink>
-  );
+    );
+  } else {
+    return (
+      <React.Fragment>
+        {content}
+      </React.Fragment>     
+    );
+  } 
 }
   
 StyledTreeItem.propTypes = {

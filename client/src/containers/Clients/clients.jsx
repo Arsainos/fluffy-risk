@@ -5,8 +5,7 @@ import {ClientRoutes as Routes} from '../../Routes/routes';
 
 export default function Clients() {
     return (
-        <React.Fragment>
-            <h1>Клиенты</h1>
+        <React.Fragment>           
             <Routes />
         </React.Fragment>     
     )
