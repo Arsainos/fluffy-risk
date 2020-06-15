@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Client({type}) {
   const [TextFieldsInputs, setTextFieldInputs] = useState({
     clientName: '',
-    ldapUser: '',
+    clientInn: '',
     clientHolding: '',
   });
 
