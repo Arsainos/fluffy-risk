@@ -35,6 +35,15 @@ export default function useAuthProvider() {
 
         return true;
     }
+
+    const createClient = (clientData) => {
+        clientsMockData.push({
+            id: clientsMockData[clientsMockData.length - 1].id + 1,
+            clientName: clientData.clientName,
+            clientInn: clientData.clientInn,
+            clientHolding: clientData.clientHolding
+        });
+    }
     
     // Return the client object and clients methods
     return {
@@ -42,6 +51,7 @@ export default function useAuthProvider() {
         setClientToContext,
         getClient,
         checkClientSet,
-        clearClient
+        clearClient,
+        createClient
     };
 }

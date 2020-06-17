@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Client({type}) {
-  const {client} = useClientRequire().client;
+  const {client} = useClientRequire();
   const router = useRouter();
 
   if(!type) { 
@@ -56,12 +56,13 @@ export default function Client({type}) {
   });
 
   useEffect(() => {
-    if(client) {
-      setTextFieldInputs({clientName: client.clientName, clientInn: client.clientInn, clientHolding: client.clientHolding})
+    if(client.client) {
+      const clientData = client.client;
+      setTextFieldInputs({clientName: clientData.clientName, clientInn: clientData.clientInn, clientHolding: clientData.clientHolding})
     } else {
       setTextFieldInputs({clientName: '', clientInn: '', clientHolding: ''})
     }
-  }, [client]);
+  }, [client.client]);
 
   const classes = useStyles();
 
@@ -122,7 +123,17 @@ export default function Client({type}) {
                 variant="contained"
                 color="primary"
                 className={classes.submit}  
-                disabled={type === 'show'}              
+                disabled={type === 'show'}    
+                onClick={() => {
+                  if(type === 'show' || type === 'edit' ) {
+                    return;
+                  } else {
+                    client.createClient({
+                      ...TextFieldsInputs
+                    });
+                    router.push('/Clients/AllClients');
+                  }
+                }}          
             >
                 {type === 'show' || type === 'edit' ? 'Сохранить изменения по клиенту' : 'Создать клиента'}                
             </Button>        
