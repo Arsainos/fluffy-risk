@@ -42,6 +42,10 @@ export default function useAuthProvider() {
             clientHolding: clientData.clientHolding
         });
     }
+
+    const editClient = (clientData) => {
+        clientsMockData.splice(clientsMockData.indexOf(clientsMockData.filter((current) => current.id === clientData.id)[0]),1,clientData);
+    }
     
     // Return the client object and clients methods
     return {
@@ -50,6 +54,7 @@ export default function useAuthProvider() {
         getClient,
         checkClientSet,
         clearClient,
-        createClient
+        createClient,
+        editClient
     };
 }

@@ -126,7 +126,11 @@ export default function Client({type}) {
                 disabled={type === 'show'}    
                 onClick={() => {
                   if(type === 'show' || type === 'edit' ) {
-                    return;
+                    client.editClient({
+                      id: client.client.id,
+                      ...TextFieldsInputs                 
+                    });
+                    router.push('/Clients/AllClients');
                   } else {
                     client.createClient({
                       ...TextFieldsInputs

@@ -5,12 +5,12 @@ import MuiTable from '../../../components/UI/Table/table';
 import Edit from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 
-// import data for table
-import {clientsMockData} from '../../../mocks/data/clients';
-
 // import custom hooks
 import useRouter from '../../../Hooks/useRouter/useRouter';
 import useClient from '../../../Hooks/useClient/useClient';
+
+// import data
+import {clientsMockData} from '../../../mocks/data/clients';
 
 export default function AllClients() {
     const router = useRouter();
@@ -19,6 +19,7 @@ export default function AllClients() {
     return (
         <MuiTable 
             columns={[
+
                 { title: 'ID' , field: 'id'},
                 { 
                     title: 'Имя клиента',
@@ -44,6 +45,16 @@ export default function AllClients() {
             ]}
             data={clientsMockData}
             title={'Все клиенты'}
+            actions={[
+                {
+                  icon: Edit,
+                  tooltip: 'Редактирование',
+                  onClick: (event, rowData) => {
+                    client.setClientToContext(rowData);
+                    router.push(`/Clients/${rowData.id}?action=edit`);
+                  }
+                }
+              ]}
         />
     )
 }
