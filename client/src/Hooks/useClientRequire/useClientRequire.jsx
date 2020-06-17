@@ -8,11 +8,13 @@ export default function useRequireClient(redirectUrl = '/Clients/AllClients') {
     const router = useRouter();
 
     useEffect(() => {
-        if(!client.checkClientSet(router.query.clientId))
-        {           
-            return router.push(redirectUrl);
-        }
-    }, [router])
+        if(router.pathname !== '/Clients/newClient') {
+            if(!client.checkClientSet(router.query.clientId))
+            {           
+                return router.push(redirectUrl);
+            }
+        } else client.clearClient();
+    }, [router, client])
 
     return {
         client

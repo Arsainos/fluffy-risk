@@ -58,6 +58,8 @@ export default function Client({type}) {
   useEffect(() => {
     if(client) {
       setTextFieldInputs({clientName: client.clientName, clientInn: client.clientInn, clientHolding: client.clientHolding})
+    } else {
+      setTextFieldInputs({clientName: '', clientInn: '', clientHolding: ''})
     }
   }, [client]);
 
