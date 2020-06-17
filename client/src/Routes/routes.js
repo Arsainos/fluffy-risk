@@ -29,7 +29,6 @@ export default function Routes() {
 // lazy loading and code splitting for Clients Containers
 const AllClients = lazy(() => import('../containers/Clients/AllClients/allClients'));
 const CreateClient = lazy(() => import('../containers/Clients/CreateClient/createClient'));
-const Client = lazy(() => import('../containers/Clients/Client/client'));
 
 export function ClientRoutes() {
     let {path} = useRouteMatch();
@@ -38,8 +37,7 @@ export function ClientRoutes() {
         <Switch>
             <Route path={`${path}/allClients`} component={AllClients} />
             <Route path={`${path}/newClient`} component={CreateClient} />
-            <Route path={`${path}/:clientId`} component={Client} />
-            <Redirect push from={`${path}/*`} to="/404" />
+            <Redirect from={`${path}/*`} to="/404" />
         </Switch>
     )
 };

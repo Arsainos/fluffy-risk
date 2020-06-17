@@ -119,6 +119,6 @@ StyledTreeItem.propTypes = {
     labelIcon: PropTypes.elementType.isRequired,
     labelInfo: PropTypes.string,
     labelText: PropTypes.string.isRequired,
-    to: PropTypes.string,
+    to: PropTypes.string.isRequired,
 };   
 
