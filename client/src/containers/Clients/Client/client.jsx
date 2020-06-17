@@ -8,6 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+// import custom hooks
+import useRouter from '../../../Hooks/useRouter/useRouter';
+import useClientRequire from '../../../Hooks/useClientRequire/useClientRequire';
+import { useEffect } from 'react';
+
 // component styles
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,11 +38,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Client({type}) {
+  const {client} = useClientRequire().client;
+  const router = useRouter();
+
+  if(!type) { 
+    if(router.query.action) {
+      type = router.query.action; 
+    } else {
+      type = 'show';
+    }
+  }
+
   const [TextFieldsInputs, setTextFieldInputs] = useState({
-    clientName: '',
-    clientInn: '',
-    clientHolding: '',
+    clientName: '', //client ? client.clientName : '' ,
+    clientInn: '', //client ? client.clientInn : '' ,
+    clientHolding: '', //client ? client.clientHolding : '' ,
   });
+
+  useEffect(() => {
+    if(client) {
+      setTextFieldInputs({clientName: client.clientName, clientInn: client.clientInn, clientHolding: client.clientHolding})
+    }
+  }, [client]);
 
   const classes = useStyles();
 
@@ -50,7 +72,7 @@ export default function Client({type}) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          {type === 'show' || type === 'edit' ? 'Клиент №1' : 'Создание нового клиента'}
+          {type === 'show' || type === 'edit' ? `${TextFieldsInputs.clientName}` : 'Создание нового клиента'}
         </Typography>
         <form className={classes.form} noValidate>
             <TextField

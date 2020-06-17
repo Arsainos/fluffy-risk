@@ -1,28 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Route} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // import componenst
 import AuthProvider from './Providers/AuthProvider/authProvider';
+import ClientProvider from './Providers/ClientProvider/clientProvider';
 import SignInPage from './containers/Auth/auth';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
-        <Switch>
-          <Route path="/signin">
-            <SignInPage />
-          </Route>
-          <Route>
-            <App />
-          </Route>
-        </Switch>        
+        <ClientProvider>
+          <Switch>
+            <Route path="/signin">
+              <SignInPage />
+            </Route>
+            <Route>
+              <App />
+            </Route>
+          </Switch>   
+        </ClientProvider>     
       </AuthProvider>
-    </BrowserRouter>   
+    </HashRouter>   
   </React.StrictMode>,
   document.getElementById('root')
 );
