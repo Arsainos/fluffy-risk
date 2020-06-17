@@ -20,6 +20,10 @@ export default function useAuthProvider() {
         } else return false;    
     };
 
+    const clearClient = () => {
+        setClient(null);
+    }
+
     const checkClientSet = (clientId) => {
         if(client === null || client === false) {
             return getClient(clientId);
@@ -37,6 +41,7 @@ export default function useAuthProvider() {
         client,
         setClientToContext,
         getClient,
-        checkClientSet
+        checkClientSet,
+        clearClient
     };
 }
