@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import useRouter from '../useRouter/useRouter';
-
 import {clientsMockData} from '../../mocks/data/clients';
 
 export default function useAuthProvider() {
