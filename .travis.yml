@@ -31,14 +31,6 @@ matrix:
       - docker tag fluffy-risk-client registry.heroku.com/fluffy-risk-client/web
       - docker push registry.heroku.com/fluffy-risk-client/web
       - heroku container:release web -a fluffy-risk-client
-
-  - language: go
-    go:
-      - master
-    before_install:
-      - cd server
-    script:
-      - go test -v ./...
     
 on:
   branch: development
