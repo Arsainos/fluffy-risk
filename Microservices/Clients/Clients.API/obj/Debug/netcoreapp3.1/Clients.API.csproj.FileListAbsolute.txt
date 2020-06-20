@@ -1,0 +1,9 @@
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.csprojAssemblyReference.cache
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.AssemblyInfoInputs.cache
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.AssemblyInfo.cs
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.RazorTargetAssemblyInfo.cache
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\staticwebassets\Clients.API.StaticWebAssets.Manifest.cache
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\staticwebassets\Clients.API.StaticWebAssets.xml
