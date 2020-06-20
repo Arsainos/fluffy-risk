@@ -12,7 +12,7 @@ import useClient from '../../../Hooks/useClient/useClient';
 // import data
 import {clientsMockData} from '../../../mocks/data/clients';
 
-export default function AllClients() {
+export default function GroupClients() {
     const router = useRouter();
     const client = useClient();
     
@@ -44,7 +44,7 @@ export default function AllClients() {
                 }
             ]}
             data={clientsMockData}
-            title={'Все клиенты'}
+            title={'Клиенты по подразделению'}
             actions={[
                 {
                   icon: Edit,
@@ -54,11 +54,11 @@ export default function AllClients() {
                     router.push(`/Clients/${rowData.id}?action=edit`);
                   }
                 }
-              ]}
-              options={{
+            ]}
+            options={{
                 grouping: true,
                 filtering: true
-              }}
+            }}
         />
     )
 }
