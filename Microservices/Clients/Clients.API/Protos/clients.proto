@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Clients.API";
+
+package clientsApi;
+
+// The clients service definition
+service ClientsApi {
+  rpc GetClientById (ClientRequest) returns (ClientResponse);
+}
+
+// The request message containing the user's name.
+message ClientRequest {
+  int32 clientId = 1;
+}
+
+// The response message containing the greetings.
+message ClientResponse {
+  int32 clientId = 1;
+  string clientName = 2;
+  int32 clientInn = 3;
+  string clientsHolding = 4;
+}
