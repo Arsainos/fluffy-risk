@@ -7,6 +7,9 @@ package clientsApi;
 // The clients service definition
 service ClientsApi {
   rpc GetClientById (ClientRequest) returns (ClientResponse);
+  rpc UpdateClientInfo (ClientResponse) returns (ClientResponse);
+  rpc GetClients (null) returns (ListClientReponse);
+  rpc DeleteClient (ClientRequest) returns (ClientActionResult);
 }
 
 // The request message containing the user's name.
@@ -20,4 +23,14 @@ message ClientResponse {
   string clientName = 2;
   int32 clientInn = 3;
   string clientsHolding = 4;
+}
+
+// List of Clients
+message ListClientReponse {
+    repeated ClientResponse = 8;
+}
+
+// The response message for some action result in boolean
+message ClientActionResult {
+    bool result = 1;
 }

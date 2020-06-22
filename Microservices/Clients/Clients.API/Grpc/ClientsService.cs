@@ -4,15 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using Clients.API.Model;
 
 namespace Clients.API.Grpc
 {
     public class ClientsService : ClientsApi.ClientsApiBase
     {
         private readonly ILogger<ClientsService> _logger;
-        public ClientsService(ILogger<ClientsService> logger)
+        private readonly IClientsRepository _repository;
+        public ClientsService(ILogger<ClientsService> logger, IClientsRepository repository)
         {
             _logger = logger;
+            _repository = repository;
         }
 
         public override Task<ClientResponse> GetClientById(ClientRequest request, ServerCallContext context)
