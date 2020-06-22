@@ -5,10 +5,10 @@ option csharp_namespace = "Clients.API";
 package clientsApi;
 
 // The clients service definition
-service ClientsApi {
+service ClientsGrpc {
   rpc GetClientById (ClientRequest) returns (ClientResponse);
   rpc UpdateClientInfo (ClientResponse) returns (ClientResponse);
-  rpc GetClients (null) returns (ListClientReponse);
+  rpc GetClients (ClintRequestWithNoParameters) returns (ListClientReponse);
   rpc DeleteClient (ClientRequest) returns (ClientActionResult);
 }
 
@@ -27,10 +27,13 @@ message ClientResponse {
 
 // List of Clients
 message ListClientReponse {
-    repeated ClientResponse = 8;
+    repeated ClientResponse Clients = 8;
 }
 
 // The response message for some action result in boolean
 message ClientActionResult {
     bool result = 1;
 }
+
+// with no params request
+message ClintRequestWithNoParameters {}

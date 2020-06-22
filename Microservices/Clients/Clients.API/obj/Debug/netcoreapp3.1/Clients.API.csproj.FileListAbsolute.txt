@@ -23,7 +23,6 @@ C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\De
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Grpc.Net.Common.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.csproj.CopyComplete
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.genruntimeconfig.cache
-C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.csprojAssemblyReference.cache
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll

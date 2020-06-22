@@ -8,7 +8,7 @@ using Clients.API.Model;
 
 namespace Clients.API.Grpc
 {
-    public class ClientsService : ClientsApi.ClientsApiBase
+    public class ClientsService : ClientsGrpc.ClientsGrpcBase
     {
         private readonly ILogger<ClientsService> _logger;
         private readonly IClientsRepository _repository;
