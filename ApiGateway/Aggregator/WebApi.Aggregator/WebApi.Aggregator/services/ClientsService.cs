@@ -24,7 +24,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<int> CreateClient(ClientInfo clientInfo)
         {
-            return await GrpcCallerService.CallService("localhost:5001", async channel =>
+            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
@@ -38,7 +38,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<bool> DeleteClient(int clientId)
         {
-            return await GrpcCallerService.CallService("localhost:5001", async channel =>
+            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
@@ -52,7 +52,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<ClientInfo> GetClientById(int clientId)
         {
-            return await GrpcCallerService.CallService("localhost:5001", async channel =>
+            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
@@ -66,7 +66,7 @@ namespace WebApi.Aggregator.services
 
         public IEnumerable<ClientInfo> GetClients()
         {
-            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
+            Channel channel = new Channel("https://localhost:5001", ChannelCredentials.Insecure);
             var client = new ClientsGrpc.ClientsGrpcClient(channel);
             _logger.LogInformation("grpc client created");
             try
@@ -84,7 +84,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<ClientInfo> UpdateClientInfo(ClientInfo clientInfo)
         {
-            return await GrpcCallerService.CallService("localhost:5001", async channel =>
+            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);

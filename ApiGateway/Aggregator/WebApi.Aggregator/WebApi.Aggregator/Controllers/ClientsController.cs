@@ -41,7 +41,7 @@ namespace WebApi.Aggregator.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync()
         {
-            return await _clients.GetClientById((int)RouteData.Values["id"]);
+            return await _clients.GetClientById(Convert.ToInt32(RouteData.Values["id"]));
         }
 
         [HttpGet]
@@ -53,7 +53,7 @@ namespace WebApi.Aggregator.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteClientAsync()
         {
-            return await _clients.DeleteClient((int)RouteData.Values["id"]);
+            return await _clients.DeleteClient(Convert.ToInt32(RouteData.Values["id"]));
         }
 
         [Route("CreateClient")]
