@@ -24,56 +24,44 @@ namespace WebApi.Aggregator.services
 
         public async Task<int> CreateClient(ClientInfo clientInfo)
         {
-            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
-            var client = new ClientsGrpc.ClientsGrpcClient(channel);
-            _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
-            try
+            return await GrpcCallerService.CallService("localhost:5001", async channel =>
             {
+                var client = new ClientsGrpc.ClientsGrpcClient(channel);
+                _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
+
                 var response = await client.CreateClientAsync(new ClientResponse { ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding });
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return response.ClientId;
-            }
-            catch
-            {
-                return -1;
-            }
+            });
         }
 
         public async Task<bool> DeleteClient(int clientId)
         {
-            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
-            var client = new ClientsGrpc.ClientsGrpcClient(channel);
-            _logger.LogInformation("grpc client created, request = { @id}", clientId);
-            try
+            return await GrpcCallerService.CallService("localhost:5001", async channel =>
             {
+                var client = new ClientsGrpc.ClientsGrpcClient(channel);
+                _logger.LogInformation("grpc client created, request = { @id}", clientId);
+
                 var response = await client.DeleteClientAsync(new ClientRequest { ClientId = clientId });
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return await Task.FromResult(response.Result);
-            }
-            catch
-            {
-                return false;
-            }
+            });
         }
 
         public async Task<ClientInfo> GetClientById(int clientId)
         {
-            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
-            var client = new ClientsGrpc.ClientsGrpcClient(channel);
-            _logger.LogInformation("grpc client created, request = { @id}", clientId);
-            try
+            return await GrpcCallerService.CallService("localhost:5001", async channel =>
             {
+                var client = new ClientsGrpc.ClientsGrpcClient(channel);
+                _logger.LogInformation("grpc client created, request = { @id}", clientId);
+
                 var response = await client.GetClientByIdAsync(new ClientRequest { ClientId = 1 });
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return await Task.FromResult(MapToClientsInfo(response));
-            }
-            catch
-            {
-                return null;
-            }
+            });
         }
 
         public IEnumerable<ClientInfo> GetClients()
@@ -96,20 +84,16 @@ namespace WebApi.Aggregator.services
 
         public async Task<ClientInfo> UpdateClientInfo(ClientInfo clientInfo)
         {
-            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
-            var client = new ClientsGrpc.ClientsGrpcClient(channel);
-            _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
-            try
+            return await GrpcCallerService.CallService("localhost:5001", async channel =>
             {
+                var client = new ClientsGrpc.ClientsGrpcClient(channel);
+                _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
+
                 var response = await client.UpdateClientInfoAsync(new ClientResponse { ClientId = clientInfo.clientId, ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding }); ;
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return await Task.FromResult(MapToClientsInfo(response));
-            }
-            catch
-            {
-                return null;
-            }
+            });
         }
 
         private ClientInfo MapToClientsInfo(ClientResponse clientResponse)
