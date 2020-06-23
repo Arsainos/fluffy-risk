@@ -25,11 +25,11 @@ namespace WebApi.Aggregator.services
         public Task<ClientInfo> GetClientById(int clientId)
         {
             Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
-            var client = new ClientsApi.ClientsApiClient(channel);
+            var client = new ClientsGrpc.ClientsGrpcClient(channel);
             _logger.LogInformation("grpc client created, request = { @id}", clientId);
             try
             {
-                var response = client.GetClientById(new ClientRequest { ClientId = 1 });
+                var response = client.(new ClientRequest { ClientId = 1 });
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return Task.FromResult(MapToClientsInfo(response));

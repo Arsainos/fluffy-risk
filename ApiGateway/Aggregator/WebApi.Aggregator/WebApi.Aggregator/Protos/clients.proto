@@ -5,8 +5,11 @@ option csharp_namespace = "Clients.API";
 package clientsApi;
 
 // The clients service definition
-service ClientsApi {
+service ClientsGrpc {
   rpc GetClientById (ClientRequest) returns (ClientResponse);
+  rpc UpdateClientInfo (ClientResponse) returns (ClientResponse);
+  rpc GetClients (ClintRequestWithNoParameters) returns (ListClientReponse);
+  rpc DeleteClient (ClientRequest) returns (ClientActionResult);
 }
 
 // The request message containing the user's name.
@@ -21,3 +24,16 @@ message ClientResponse {
   int32 clientInn = 3;
   string clientsHolding = 4;
 }
+
+// List of Clients
+message ListClientReponse {
+    repeated ClientResponse Clients = 8;
+}
+
+// The response message for some action result in boolean
+message ClientActionResult {
+    bool result = 1;
+}
+
+// with no params request
+message ClintRequestWithNoParameters {}
