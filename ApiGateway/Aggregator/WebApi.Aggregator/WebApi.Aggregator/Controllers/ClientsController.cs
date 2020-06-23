@@ -36,12 +36,38 @@ namespace WebApi.Aggregator.Controllers
         /// <returns>Client Information by unique identifier.</returns>
         /// <response code="200">Client Info exists in data base</response>
         /// <response code="400">If the item is null</response>
-        [HttpPost]
+        [HttpGet("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync(int clientId)
         {
             return await _clients.GetClientById(clientId);
+        }
+
+        [HttpGet]
+        public IEnumerable<ClientInfo> GetClients()
+        {
+            return _clients.GetClients();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> DeleteClientAsync(int clientId)
+        {
+            return await _clients.DeleteClient(clientId);
+        }
+
+        [Route("CreateClient")]
+        [HttpPost]
+        public async Task<ActionResult<int>> CreateClientAsync([FromBody]ClientInfo client)
+        {
+            return await _clients.CreateClient(client);
+        }
+
+        [Route("UpdateClient")]
+        [HttpPost]
+        public async Task<ActionResult<ClientInfo>> UpdateClientInfoAsync([FromBody]ClientInfo client)
+        {
+            return await _clients.UpdateClientInfo(client);
         }
     }
 }
