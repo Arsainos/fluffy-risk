@@ -29,7 +29,7 @@ namespace WebApi.Aggregator.services
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
 
-                var response = await client.CreateClientAsync(new ClientResponse { ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding });
+                var response = await client.CreateClientAsync(MapToClientReponse(clientInfo));
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return response.ClientId;
@@ -89,11 +89,16 @@ namespace WebApi.Aggregator.services
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
 
-                var response = await client.UpdateClientInfoAsync(new ClientResponse { ClientId = clientInfo.clientId, ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding }); ;
+                var response = await client.UpdateClientInfoAsync(MapToClientReponse(clientInfo)); ;
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return await Task.FromResult(MapToClientsInfo(response));
             });
+        }
+
+        private static ClientResponse MapToClientReponse(ClientInfo clientInfo)
+        {
+            return new ClientResponse { ClientId = clientInfo.clientId, ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding };
         }
 
         private ClientInfo MapToClientsInfo(ClientResponse clientResponse)
