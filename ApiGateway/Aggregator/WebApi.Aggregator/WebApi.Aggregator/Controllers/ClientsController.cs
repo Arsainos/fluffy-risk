@@ -39,9 +39,9 @@ namespace WebApi.Aggregator.Controllers
         [HttpGet("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync(int clientId)
+        public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync()
         {
-            return await _clients.GetClientById(clientId);
+            return await _clients.GetClientById((int)RouteData.Values["id"]);
         }
 
         [HttpGet]
@@ -51,9 +51,9 @@ namespace WebApi.Aggregator.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteClientAsync(int clientId)
+        public async Task<ActionResult<bool>> DeleteClientAsync()
         {
-            return await _clients.DeleteClient(clientId);
+            return await _clients.DeleteClient((int)RouteData.Values["id"]);
         }
 
         [Route("CreateClient")]
