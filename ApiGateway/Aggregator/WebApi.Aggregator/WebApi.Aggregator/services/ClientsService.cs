@@ -57,7 +57,7 @@ namespace WebApi.Aggregator.services
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
 
-                var response = await client.GetClientByIdAsync(new ClientRequest { ClientId = 1 });
+                var response = await client.GetClientByIdAsync(new ClientRequest { ClientId = clientId });
                 _logger.LogDebug("grpc response {@response}", response);
 
                 return await Task.FromResult(MapToClientsInfo(response));
