@@ -10,6 +10,7 @@ service ClientsGrpc {
   rpc UpdateClientInfo (ClientResponse) returns (ClientResponse);
   rpc GetClients (ClintRequestWithNoParameters) returns (ListClientReponse);
   rpc DeleteClient (ClientRequest) returns (ClientActionResult);
+  rpc CreateClient (ClientResponse) returns (ClientRequest);
 }
 
 // The request message containing the user's name.

@@ -22,19 +22,91 @@ namespace WebApi.Aggregator.services
             _logger = logger;
         }
 
-        public Task<ClientInfo> GetClientById(int clientId)
+        public async Task<int> CreateClient(ClientInfo clientInfo)
+        {
+            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
+            var client = new ClientsGrpc.ClientsGrpcClient(channel);
+            _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
+            try
+            {
+                var response = await client.CreateClientAsync(new ClientResponse { ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding });
+                _logger.LogDebug("grpc response {@response}", response);
+
+                return response.ClientId;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public async Task<bool> DeleteClient(int clientId)
         {
             Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
             var client = new ClientsGrpc.ClientsGrpcClient(channel);
             _logger.LogInformation("grpc client created, request = { @id}", clientId);
             try
             {
-                var response = client.(new ClientRequest { ClientId = 1 });
+                var response = await client.DeleteClientAsync(new ClientRequest { ClientId = clientId });
                 _logger.LogDebug("grpc response {@response}", response);
 
-                return Task.FromResult(MapToClientsInfo(response));
+                return await Task.FromResult(response.Result);
             }
-            catch (Exception ex)
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<ClientInfo> GetClientById(int clientId)
+        {
+            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
+            var client = new ClientsGrpc.ClientsGrpcClient(channel);
+            _logger.LogInformation("grpc client created, request = { @id}", clientId);
+            try
+            {
+                var response = await client.GetClientByIdAsync(new ClientRequest { ClientId = 1 });
+                _logger.LogDebug("grpc response {@response}", response);
+
+                return await Task.FromResult(MapToClientsInfo(response));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public IEnumerable<ClientInfo> GetClients()
+        {
+            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
+            var client = new ClientsGrpc.ClientsGrpcClient(channel);
+            _logger.LogInformation("grpc client created");
+            try
+            {
+                var response = client.GetClients(new ClintRequestWithNoParameters());
+                _logger.LogDebug("grpc response {@response}", response);
+
+                return response.Clients.ToList().ConvertAll(new Converter<ClientResponse, ClientInfo>(MapToClientsInfo));              
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<ClientInfo> UpdateClientInfo(ClientInfo clientInfo)
+        {
+            Channel channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
+            var client = new ClientsGrpc.ClientsGrpcClient(channel);
+            _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
+            try
+            {
+                var response = await client.UpdateClientInfoAsync(new ClientResponse { ClientId = clientInfo.clientId, ClientInn = clientInfo.clientInn, ClientName = clientInfo.clientName, ClientsHolding = clientInfo.clientsHolding }); ;
+                _logger.LogDebug("grpc response {@response}", response);
+
+                return await Task.FromResult(MapToClientsInfo(response));
+            }
+            catch
             {
                 return null;
             }

@@ -10,5 +10,6 @@ namespace WebApi.Aggregator.services
         Task<ClientInfo> UpdateClientInfo(ClientInfo clientInfo);
         IEnumerable<ClientInfo> GetClients();
         Task<bool> DeleteClient(int clientId);
+        Task<int> CreateClient(ClientInfo clientInfo);
     }
 }
