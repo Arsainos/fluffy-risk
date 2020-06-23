@@ -15,12 +15,10 @@ namespace Clients.API.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly IClientsRepository _repository;
-        private readonly ILogger<ClientsController> _logger;
 
         public ClientsController(ILogger<ClientsController> logger, IClientsRepository repository)
         {
             _repository = repository;
-            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -32,6 +30,7 @@ namespace Clients.API.Controllers
             return Ok(client);
         }
 
+        [Route("CreateClient")]
         [HttpPost]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<int>> CreateClientAsync([FromBody]ClientInfo client)
@@ -39,9 +38,10 @@ namespace Clients.API.Controllers
             return Ok(await _repository.CreateClientAsync(client));
         }
 
+        [Route("UpdateClient")]
         [HttpPost]
         [ProducesResponseType(typeof(ClientInfo), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<ClientInfo>> UpdateClientAsync([FromBody]ClientInfo client)
+        public async Task<ActionResult<ClientInfo>> UpdateClientAsync(ClientInfo client)
         {
             return Ok(await _repository.UpdateClientInfoAsync(client));
         }
@@ -53,7 +53,7 @@ namespace Clients.API.Controllers
             return Ok(await _repository.DeleteClientInfoAsync(clientId));
         }
 
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ClientInfo>), (int)HttpStatusCode.OK)]
         public IEnumerable<ClientInfo> GetClients()
         {
