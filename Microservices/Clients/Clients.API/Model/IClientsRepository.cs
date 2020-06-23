@@ -11,5 +11,6 @@ namespace Clients.API.Model
         IEnumerable<ClientInfo> GetClients();
         Task<ClientInfo> UpdateClientInfoAsync(ClientInfo clientInfo);
         Task<bool> DeleteClientInfoAsync(int clientId);
+        Task<int> CreateClientAsync(ClientInfo clientInfo);
     }
 }

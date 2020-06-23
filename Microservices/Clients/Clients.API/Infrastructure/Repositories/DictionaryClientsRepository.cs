@@ -10,7 +10,6 @@ namespace Clients.API.Infrastructure.Repositories
     public class DictionaryClientsRepository : IClientsRepository
     {
         private Dictionary<int, ClientInfo> _storage;
-        private readonly ILogger<DictionaryClientsRepository> _logger;
 
         public DictionaryClientsRepository()
         {
@@ -37,6 +36,17 @@ namespace Clients.API.Infrastructure.Repositories
         public Task<ClientInfo> UpdateClientInfoAsync(ClientInfo clientInfo)
         {
             return Task.FromResult(_storage[clientInfo.Id] = clientInfo);
+        }
+
+        public Task<int> CreateClientAsync(ClientInfo clientInfo)
+        {
+            return Task<int>.Factory.StartNew(() => {
+                int index = _storage.Max(client => client.Key) + 1;
+
+                _storage.Add(index, new ClientInfo { Id = index, Inn = clientInfo.Inn, Name = clientInfo.Name, Holding = clientInfo.Holding });
+                
+                return index;
+            });
         }
     }
 }
