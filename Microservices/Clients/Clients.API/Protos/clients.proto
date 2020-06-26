@@ -8,7 +8,7 @@ package clientsApi;
 service ClientsGrpc {
   rpc GetClientById (ClientRequest) returns (ClientResponse);
   rpc UpdateClientInfo (ClientResponse) returns (ClientResponse);
-  rpc GetClients (ClintRequestWithNoParameters) returns (ListClientResponse);
+  rpc GetClients (ClientRequestWithNoParameters) returns (ListClientResponse);
   rpc DeleteClient (ClientRequest) returns (ClientActionResult);
   rpc CreateClient (ClientResponse) returns (ClientRequest);
 }
@@ -37,4 +37,4 @@ message ClientActionResult {
 }
 
 // with no params request
-message ClintRequestWithNoParameters {}
+message ClientRequestWithNoParameters {}

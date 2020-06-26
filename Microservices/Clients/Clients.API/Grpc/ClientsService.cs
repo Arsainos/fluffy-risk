@@ -46,7 +46,7 @@ namespace Clients.API.Grpc
             };
         }
 
-        public override async Task<ListClientResponse> GetClients(ClintRequestWithNoParameters request, ServerCallContext context)
+        public override async Task<ListClientResponse> GetClients(ClientRequestWithNoParameters request, ServerCallContext context)
         {
             _logger.LogInformation("Begin grpc call from method {Method} for clients ", context.Method);
 
