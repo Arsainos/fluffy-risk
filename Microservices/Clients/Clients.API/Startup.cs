@@ -33,7 +33,7 @@ namespace Clients.API
                 options.EnableDetailedErrors = true;
             });
 
-            services.AddTransient<IClientsRepository, DictionaryClientsRepository>();
+            services.AddSingleton<IClientsRepository, DictionaryClientsRepository>();
 
             services.AddControllers();
             services.AddSwagger();          
