@@ -24,7 +24,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<int> CreateClient(ClientInfo clientInfo)
         {
-            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
+            return await GrpcCallerService.CallServiceAsync("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
@@ -38,7 +38,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<bool> DeleteClient(int clientId)
         {
-            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
+            return await GrpcCallerService.CallServiceAsync("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
@@ -52,7 +52,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<ClientInfo> GetClientById(int clientId)
         {
-            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
+            return await GrpcCallerService.CallServiceAsync("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
@@ -64,27 +64,23 @@ namespace WebApi.Aggregator.services
             });
         }
 
-        public IEnumerable<ClientInfo> GetClients()
+        public async Task<IEnumerable<ClientInfo>> GetClients()
         {
-            Channel channel = new Channel("https://localhost:5001", ChannelCredentials.Insecure);
-            var client = new ClientsGrpc.ClientsGrpcClient(channel);
-            _logger.LogInformation("grpc client created");
-            try
+            return await GrpcCallerService.CallServiceAsync("https://localhost:5001", async channel =>
             {
-                var response = client.GetClients(new ClintRequestWithNoParameters());
+                var client = new ClientsGrpc.ClientsGrpcClient(channel);
+                _logger.LogInformation("grpc get clients");
+
+                var response = await client.GetClientsAsync(new ClintRequestWithNoParameters());
                 _logger.LogDebug("grpc response {@response}", response);
 
-                return response.Clients.ToList().ConvertAll(new Converter<ClientResponse, ClientInfo>(MapToClientsInfo));              
-            }
-            catch
-            {
-                return null;
-            }
+                return await Task.FromResult(response.Clients.ToList().ConvertAll(new Converter<ClientResponse, ClientInfo>(MapToClientsInfo)).AsEnumerable());
+            });
         }
 
         public async Task<ClientInfo> UpdateClientInfo(ClientInfo clientInfo)
         {
-            return await GrpcCallerService.CallService("https://localhost:5001", async channel =>
+            return await GrpcCallerService.CallServiceAsync("https://localhost:5001", async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);

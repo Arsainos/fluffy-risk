@@ -45,9 +45,9 @@ namespace WebApi.Aggregator.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ClientInfo> GetClients()
+        public async Task<IEnumerable<ClientInfo>> GetClients()
         {
-            return _clients.GetClients();
+            return await _clients.GetClients();
         }
 
         [HttpDelete("{id}")]
