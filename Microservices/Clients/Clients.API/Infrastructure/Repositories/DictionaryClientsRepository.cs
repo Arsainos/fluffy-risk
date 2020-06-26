@@ -28,9 +28,9 @@ namespace Clients.API.Infrastructure.Repositories
             return Task.FromResult(_storage[clientId]);
         }
 
-        public IEnumerable<ClientInfo> GetClients()
+        public Task<IEnumerable<ClientInfo>> GetClients()
         {
-            return _storage.Values;
+            return Task.FromResult(_storage.Values.AsEnumerable());
         }
 
         public Task<ClientInfo> UpdateClientInfoAsync(ClientInfo clientInfo)

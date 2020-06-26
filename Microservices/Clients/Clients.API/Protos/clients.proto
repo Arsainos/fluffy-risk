@@ -8,7 +8,7 @@ package clientsApi;
 service ClientsGrpc {
   rpc GetClientById (ClientRequest) returns (ClientResponse);
   rpc UpdateClientInfo (ClientResponse) returns (ClientResponse);
-  rpc GetClients (ClintRequestWithNoParameters) returns (ListClientReponse);
+  rpc GetClients (ClintRequestWithNoParameters) returns (ListClientResponse);
   rpc DeleteClient (ClientRequest) returns (ClientActionResult);
   rpc CreateClient (ClientResponse) returns (ClientRequest);
 }
@@ -27,8 +27,8 @@ message ClientResponse {
 }
 
 // List of Clients
-message ListClientReponse {
-    repeated ClientResponse Clients = 8;
+message ListClientResponse {
+    repeated ClientResponse Clients = 1;
 }
 
 // The response message for some action result in boolean

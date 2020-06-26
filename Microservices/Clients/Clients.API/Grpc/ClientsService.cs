@@ -46,13 +46,23 @@ namespace Clients.API.Grpc
             };
         }
 
-        public override Task<ListClientReponse> GetClients(ClintRequestWithNoParameters request, ServerCallContext context)
+        public override async Task<ListClientResponse> GetClients(ClintRequestWithNoParameters request, ServerCallContext context)
         {
             _logger.LogInformation("Begin grpc call from method {Method} for clients ", context.Method);
 
-            var clients = _repository.GetClients();
+            var clients = await _repository.GetClients();
 
-            return null;
+            var col = new Google.Protobuf.Collections.RepeatedField<ClientResponse>();
+
+            foreach(var t in clients.ToList().ConvertAll(new Converter<ClientInfo, ClientResponse>(MapToClientResponse)))
+            {
+                col.Add(t);
+            }
+
+            var a = new ListClientResponse();
+            a.Clients.Add(col);
+
+            return a;
         }
 
         public override async Task<ClientResponse> UpdateClientInfo(ClientResponse request, ServerCallContext context)
@@ -61,13 +71,7 @@ namespace Clients.API.Grpc
 
             var clientData = await _repository.UpdateClientInfoAsync(new ClientInfo() { Id = request.ClientId, Inn = request.ClientInn, Name = request.ClientName, Holding = request.ClientsHolding });
 
-            return new ClientResponse()
-            {
-                ClientId = clientData.Id,
-                ClientInn = clientData.Inn,
-                ClientName = clientData.Name,
-                ClientsHolding = clientData.Holding
-            };
+            return MapToClientResponse(clientData);
         }
 
         public override async Task<ClientRequest> CreateClient(ClientResponse request, ServerCallContext context)
@@ -77,6 +81,17 @@ namespace Clients.API.Grpc
             var clientId = await _repository.CreateClientAsync(new ClientInfo() { Id = request.ClientId, Inn = request.ClientInn, Name = request.ClientName, Holding = request.ClientsHolding });
 
             return new ClientRequest() { ClientId = clientId };
+        }
+
+        private static ClientResponse MapToClientResponse(ClientInfo clientData)
+        {
+            return new ClientResponse()
+            {
+                ClientId = clientData.Id,
+                ClientInn = clientData.Inn,
+                ClientName = clientData.Name,
+                ClientsHolding = clientData.Holding
+            };
         }
     }
 }

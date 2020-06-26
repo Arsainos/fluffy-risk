@@ -8,7 +8,7 @@ namespace Clients.API.Model
     public interface IClientsRepository
     {
         Task<ClientInfo> GetClientInfoAsync(int clientId);
-        IEnumerable<ClientInfo> GetClients();
+        Task<IEnumerable<ClientInfo>> GetClients();
         Task<ClientInfo> UpdateClientInfoAsync(ClientInfo clientInfo);
         Task<bool> DeleteClientInfoAsync(int clientId);
         Task<int> CreateClientAsync(ClientInfo clientInfo);

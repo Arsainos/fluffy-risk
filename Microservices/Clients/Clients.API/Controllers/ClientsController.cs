@@ -55,9 +55,9 @@ namespace Clients.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ClientInfo>), (int)HttpStatusCode.OK)]
-        public IEnumerable<ClientInfo> GetClients()
+        public async Task<ActionResult<IEnumerable<ClientInfo>>> GetClients()
         {
-            return _repository.GetClients();
+            return Ok(await _repository.GetClients());
         }
     }
 }
