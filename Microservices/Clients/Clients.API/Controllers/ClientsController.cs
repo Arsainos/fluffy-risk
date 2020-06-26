@@ -23,9 +23,9 @@ namespace Clients.API.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ClientInfo), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync(int clientId)
+        public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync()
         {
-            var client = await _repository.GetClientInfoAsync(clientId);
+            var client = await _repository.GetClientInfoAsync(Convert.ToInt32(Request.Query["id"]));
 
             return Ok(client);
         }
@@ -48,9 +48,9 @@ namespace Clients.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<bool>> DeleteClientAsync(int clientId)
+        public async Task<ActionResult<bool>> DeleteClientAsync()
         {
-            return Ok(await _repository.DeleteClientInfoAsync(clientId));
+            return Ok(await _repository.DeleteClientInfoAsync(Convert.ToInt32(Request.Query["id"])));
         }
 
         [HttpGet]
