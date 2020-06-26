@@ -72,7 +72,7 @@ namespace Clients.API.Grpc
 
         public override async Task<ClientRequest> CreateClient(ClientResponse request, ServerCallContext context)
         {
-            _logger.LogInformation("Begin grpc call from method {Method} for client id {Id}", context.Method);
+            _logger.LogInformation("Begin grpc call from method {Method}", context.Method);
 
             var clientId = await _repository.CreateClientAsync(new ClientInfo() { Id = request.ClientId, Inn = request.ClientInn, Name = request.ClientName, Holding = request.ClientsHolding });
 
