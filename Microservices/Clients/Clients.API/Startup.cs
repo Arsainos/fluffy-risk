@@ -81,6 +81,10 @@ namespace Clients.API
                     Version = "v1",
                     Description = "Fluffy Risk Clients Api Swagger"
                 });
+
+                var basePath = AppContext.BaseDirectory;
+
+                c.IncludeXmlComments(basePath + "\\Clients.API.xml");
             });
 
             return services;
