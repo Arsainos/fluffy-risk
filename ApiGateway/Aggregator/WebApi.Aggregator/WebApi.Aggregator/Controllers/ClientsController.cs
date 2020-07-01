@@ -50,6 +50,10 @@ namespace WebApi.Aggregator.Controllers
             return await _clients.GetClients();
         }
 
+        /// <summary>
+        /// Удаляет конкретного клиента по его идентификатору.
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteClientAsync()
         {

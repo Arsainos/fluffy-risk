@@ -102,4 +102,3 @@ C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\De
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.csprojAssemblyReference.cache

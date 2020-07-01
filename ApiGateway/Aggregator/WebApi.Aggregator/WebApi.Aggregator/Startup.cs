@@ -72,6 +72,10 @@ public static class ServiceCollectionExtensions
                 Version = "v1",
                 Description = "Web Api Agregator for business app"
             });
+
+            var basePath = AppContext.BaseDirectory;
+
+            options.IncludeXmlComments(basePath + "\\WebApi.Aggregator.xml");
         });
 
         return services;
