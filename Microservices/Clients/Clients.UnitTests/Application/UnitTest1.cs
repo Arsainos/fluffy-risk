@@ -1,3 +1,4 @@
+using Moq;
 using NUnit.Framework;
 
 namespace Clients.UnitTests
@@ -7,6 +8,7 @@ namespace Clients.UnitTests
         [SetUp]
         public void Setup()
         {
+            
         }
 
         [Test]
