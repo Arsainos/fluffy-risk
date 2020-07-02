@@ -19,7 +19,7 @@ namespace Identity.API.Services
             _signInManager = signInManager;
         }
 
-        public Task<ApplicationUser> FindByAccount(string account)
+        public Task<ApplicationUser> FindByLogin(string account)
         {
             return null;
         }
