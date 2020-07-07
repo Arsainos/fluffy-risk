@@ -48,6 +48,8 @@ namespace Identity.API
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -56,6 +58,8 @@ namespace Identity.API
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+            ApplicationIdentityContext.CreateAdminAccount(app.ApplicationServices).Wait();
         }
     }
 
