@@ -19,19 +19,19 @@ namespace Identity.API.Services
             _signInManager = signInManager;
         }
 
-        public Task<ApplicationUser> FindByLogin(string account)
+        public async Task<ApplicationUser> FindByLogin(string account)
         {
-            return null;
+            return await _userManager.FindByNameAsync(account);
         }
 
         public Task SignIn(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            return _signInManager.SignInAsync(user, true);
         }
 
         public Task SignInAsync(ApplicationUser user, AuthenticationProperties properties, string authenticationMethod = null)
         {
-            throw new NotImplementedException();
+            return _signInManager.SignInAsync(user, properties, authenticationMethod);
         }
 
         public async Task<bool> ValidateCredentials(ApplicationUser user, string password)
