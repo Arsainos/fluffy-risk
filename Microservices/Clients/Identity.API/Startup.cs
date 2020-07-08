@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Identity.API.Services;
 
 namespace Identity.API
 {
@@ -36,6 +37,11 @@ namespace Identity.API
         {
             services.AuthService(_securityKey);
 
+            services.AddTransient<ILoginService<ApplicationUser>, ApplicationLoginService>();
+            services.AddTransient<ITokenService<ApplicationUser>, TokenService>();
+
+            services.AddControllers();
+
             services.AddDbContext<ApplicationIdentityContext>(options => options.UseInMemoryDatabase("IdentityDatabase"));
         }
 
@@ -53,6 +59,7 @@ namespace Identity.API
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
