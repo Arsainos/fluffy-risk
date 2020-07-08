@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Identity.API.Services;
+using Microsoft.OpenApi.Models;
 
 namespace Identity.API
 {
@@ -41,6 +42,7 @@ namespace Identity.API
             services.AddTransient<ITokenService<ApplicationUser>, TokenService>();
 
             services.AddControllers();
+            services.AddSwagger();
 
             services.AddDbContext<ApplicationIdentityContext>(options => options.UseInMemoryDatabase("IdentityDatabase"));
         }
@@ -52,6 +54,13 @@ namespace Identity.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity API v1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
             app.UseAuthentication();
@@ -120,6 +129,25 @@ namespace Identity.API
 
                 // User settings
                 //options.User.RequireUniqueEmail = true;
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Identity.API",
+                    Version = "v1",
+                    Description = "Fluffy Risk Identity API swagger"
+                });
+
+                var basePath = AppContext.BaseDirectory;
+
+                c.IncludeXmlComments(basePath + "\\Identity.API.xml");
             });
 
             return services;
