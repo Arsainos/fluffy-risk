@@ -34,9 +34,9 @@ namespace Identity.API.Services
             return _signInManager.SignInAsync(user, properties, authenticationMethod);
         }
 
-        public async Task<bool> ValidateCredentials(ApplicationUser user, string password)
+        public bool ValidateCredentials(ApplicationUser user, string password)
         {
-            return await _userManager.CheckPasswordAsync(user, password);
+            return user.PasswordHash.Equals(password);
         }
     }
 }

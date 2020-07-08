@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Identity.API.Models;
 using Identity.API.Services;
@@ -39,7 +40,13 @@ namespace Identity.API.Controllers
             {
                 var user = await _loginService.FindByLogin(model.Account);
 
-                if(await _loginService.ValidateCredentials(user, model.Password))
+                if(user == null)
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                    return ValidationProblem();
+                }
+
+                if (_loginService.ValidateCredentials(user, model.Password))
                 {
                     var props = new AuthenticationProperties
                     {
