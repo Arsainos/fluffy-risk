@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Identity.API.Services
 {
-    public class TokenService : ITokenService
+    public class TokenService : ITokenService<ApplicationUser>
     {
         readonly SignInManager<ApplicationUser> _signInManager;
         readonly UserManager<ApplicationUser> _userManager;

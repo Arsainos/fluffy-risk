@@ -17,6 +17,7 @@ namespace Identity.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly ILoginService<ApplicationUser> _loginService;
+        private readonly ITokenService<ApplicationUser> _tokenService;
         private readonly ILogger<AccountController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
