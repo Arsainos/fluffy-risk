@@ -21,9 +21,13 @@ namespace Identity.API.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(ILoginService<ApplicationUser> loginService, ILogger<AccountController> logger, UserManager<ApplicationUser> userManager)
+        public AccountController(ILoginService<ApplicationUser> loginService, 
+            ITokenService<ApplicationUser> tokenService,
+            ILogger<AccountController> logger,
+            UserManager<ApplicationUser> userManager)
         {
             _loginService = loginService;
+            _tokenService = tokenService;
             _logger = logger;
             _userManager = userManager;
         }
