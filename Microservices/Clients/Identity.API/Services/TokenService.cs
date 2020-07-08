@@ -12,10 +12,10 @@ namespace Identity.API.Services
 {
     public class TokenService : ITokenService<ApplicationUser>
     {
-        readonly SignInManager<ApplicationUser> _signInManager;
-        readonly UserManager<ApplicationUser> _userManager;
-        readonly SymmetricSecurityKey _securityKey;
-        readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SymmetricSecurityKey _securityKey;
+        private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
 
         public TokenService(SignInManager<ApplicationUser> signInManager, 
             UserManager<ApplicationUser> userManager, 
