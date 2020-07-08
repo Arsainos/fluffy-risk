@@ -42,7 +42,7 @@ namespace Identity.API
 
             services.AddTransient<ILoginService<ApplicationUser>, ApplicationLoginService>();
             services.AddTransient<ITokenService<ApplicationUser>>(provider => new TokenService(ApplicationBuilder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>(), _securityKey, _jwtTokenHandler));
-
+       
             services.AddControllers();
             services.AddSwagger();            
         }
@@ -74,8 +74,6 @@ namespace Identity.API
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
-
-            ApplicationIdentityContext.CreateAdminAccount(app.ApplicationServices).Wait();
 
             ApplicationBuilder = app;
         }
