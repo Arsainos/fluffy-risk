@@ -100,8 +100,6 @@ C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\De
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\appsettings.Development.json
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\appsettings.json
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Properties\launchSettings.json
@@ -197,3 +195,12 @@ C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\ne
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.csprojAssemblyReference.cache
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\bin\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Arsai\git\Arsainos\fluffy-risk\Microservices\Clients\Clients.API\obj\Debug\netcoreapp3.1\Clients.API.MvcApplicationPartsAssemblyInfo.cache
