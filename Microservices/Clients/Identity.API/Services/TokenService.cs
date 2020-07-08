@@ -12,30 +12,23 @@ namespace Identity.API.Services
 {
     public class TokenService : ITokenService<ApplicationUser>
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SymmetricSecurityKey _securityKey;
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
 
-        public TokenService(SignInManager<ApplicationUser> signInManager, 
-            UserManager<ApplicationUser> userManager, 
+        public TokenService( UserManager<ApplicationUser> userManager, 
             SymmetricSecurityKey securityKey, 
             JwtSecurityTokenHandler jwtSecurityTokenHandler)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
             _securityKey = securityKey;
             _jwtSecurityTokenHandler = jwtSecurityTokenHandler;
         }
 
-        public async Task<string> GenerateJwtTokenAsync(string login, string password)
+        public async Task<string> GenerateJwtTokenAsync(ApplicationUser user, string password)
         {
-            ApplicationUser user = await _userManager.FindByNameAsync(login);
-
             if (user == null || !user.PasswordHash.Equals(password))
                 throw new Exception("User not found");
-
-            await _signInManager.SignInAsync(user, false);
 
             SigningCredentials credentials =
                 new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha256);

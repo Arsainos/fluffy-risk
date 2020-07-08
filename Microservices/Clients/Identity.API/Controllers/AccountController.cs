@@ -51,7 +51,7 @@ namespace Identity.API.Controllers
                     await _loginService.SignInAsync(user, props);
                 }
 
-                return Redirect(model.ReturnUrl);
+                return Ok(await _tokenService.GenerateJwtTokenAsync(user, model.Password));
             }
 
             ModelState.AddModelError("", "Invalid username or password.");
