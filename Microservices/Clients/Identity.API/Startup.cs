@@ -30,7 +30,6 @@ namespace Identity.API
         public IConfiguration Configuration { get; }
         public IApplicationBuilder ApplicationBuilder { get; set; }
 
-        private readonly JwtSecurityTokenHandler _jwtTokenHandler = new JwtSecurityTokenHandler();
         private readonly SymmetricSecurityKey _securityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -38,10 +37,10 @@ namespace Identity.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AuthService(_securityKey);
-            services.AddDbContext<ApplicationIdentityContext>(options => options.UseInMemoryDatabase("IdentityDatabase"));
+            services.AddDbContext<ApplicationIdentityContext>(options => { options.UseInMemoryDatabase("IdentityDatabase"); options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); }, ServiceLifetime.Transient);
 
             services.AddTransient<ILoginService<ApplicationUser>, ApplicationLoginService>();
-            services.AddTransient<ITokenService<ApplicationUser>>(provider => new TokenService(ApplicationBuilder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>(), _securityKey, _jwtTokenHandler));
+            services.AddTransient<ITokenService<ApplicationUser>, TokenService>();/*(provider => new TokenService(ApplicationBuilder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>(), _securityKey, _jwtTokenHandler));*/
        
             services.AddControllers();
             services.AddSwagger();            

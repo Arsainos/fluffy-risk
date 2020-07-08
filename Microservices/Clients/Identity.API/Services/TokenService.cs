@@ -14,15 +14,12 @@ namespace Identity.API.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SymmetricSecurityKey _securityKey;
-        private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
+        private readonly JwtSecurityTokenHandler _jwtTokenHandler = new JwtSecurityTokenHandler();
 
-        public TokenService( UserManager<ApplicationUser> userManager, 
-            SymmetricSecurityKey securityKey, 
-            JwtSecurityTokenHandler jwtSecurityTokenHandler)
+        public TokenService(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _securityKey = securityKey;
-            _jwtSecurityTokenHandler = jwtSecurityTokenHandler;
+            _securityKey = Certificates.Keys._securityKey;
         }
 
         public async Task<string> GenerateJwtTokenAsync(ApplicationUser user, string password)
@@ -36,7 +33,7 @@ namespace Identity.API.Services
             JwtSecurityToken token =
                 new JwtSecurityToken("Fluffy-Risk.Identity.Api", "Fluffy-Risk.Clients", await GetUserClaimsAsync(user), expires: DateTime.Now.AddDays(1), signingCredentials: credentials);
 
-            return _jwtSecurityTokenHandler.WriteToken(token);
+            return _jwtTokenHandler.WriteToken(token);
         }
 
         public async Task<List<Claim>> GetUserClaimsAsync(ApplicationUser user)
