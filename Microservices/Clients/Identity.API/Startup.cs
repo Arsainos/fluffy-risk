@@ -41,7 +41,7 @@ namespace Identity.API
             services.AddDbContext<ApplicationIdentityContext>(options => { options.UseInMemoryDatabase("IdentityDatabase"); options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); }, ServiceLifetime.Transient);
 
             services.AddTransient<ILoginService<ApplicationUser>, ApplicationLoginService>();
-            services.AddTransient<ITokenService<ApplicationUser>, TokenService>();/*(provider => new TokenService(ApplicationBuilder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>(), _securityKey, _jwtTokenHandler));*/
+            services.AddTransient<ITokenService<ApplicationUser>, TokenService>();
        
             services.AddControllers();
             services.AddSwagger();            
