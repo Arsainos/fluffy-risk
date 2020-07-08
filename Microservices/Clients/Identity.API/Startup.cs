@@ -28,6 +28,7 @@ namespace Identity.API
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
+        public IApplicationBuilder ApplicationBuilder { get; set; }
 
         private readonly JwtSecurityTokenHandler _jwtTokenHandler = new JwtSecurityTokenHandler();
         private readonly SymmetricSecurityKey _securityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
@@ -37,14 +38,13 @@ namespace Identity.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AuthService(_securityKey);
+            services.AddDbContext<ApplicationIdentityContext>(options => options.UseInMemoryDatabase("IdentityDatabase"));
 
             services.AddTransient<ILoginService<ApplicationUser>, ApplicationLoginService>();
-            services.AddTransient<ITokenService<ApplicationUser>, TokenService>();
+            services.AddTransient<ITokenService<ApplicationUser>>(provider => new TokenService(ApplicationBuilder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>(), _securityKey, _jwtTokenHandler));
 
             services.AddControllers();
-            services.AddSwagger();
-
-            services.AddDbContext<ApplicationIdentityContext>(options => options.UseInMemoryDatabase("IdentityDatabase"));
+            services.AddSwagger();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +76,8 @@ namespace Identity.API
             });
 
             ApplicationIdentityContext.CreateAdminAccount(app.ApplicationServices).Wait();
+
+            ApplicationBuilder = app;
         }
     }
 
