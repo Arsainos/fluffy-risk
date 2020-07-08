@@ -26,11 +26,12 @@ namespace Identity.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _securityKey = Certificates.Keys._securityKey;
         }
         public IConfiguration Configuration { get; }
         public IApplicationBuilder ApplicationBuilder { get; set; }
 
-        private readonly SymmetricSecurityKey _securityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
+        private readonly SymmetricSecurityKey _securityKey;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
