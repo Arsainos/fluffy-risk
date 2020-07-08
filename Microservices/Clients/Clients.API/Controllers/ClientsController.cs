@@ -52,7 +52,7 @@ namespace Clients.API.Controllers
         [ProducesResponseType(typeof(ClientInfo), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ClientInfo>> GetClientInfoByIdAsync()
         {
-            var client = await _repository.GetClientInfoAsync(Convert.ToInt32(Request.Query["id"]));
+            var client = await _repository.GetClientInfoAsync(Convert.ToInt32(Request.RouteValues["id"]));
 
             return Ok(client);
         }
@@ -148,7 +148,7 @@ namespace Clients.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<bool>> DeleteClientAsync()
         {
-            return Ok(await _repository.DeleteClientInfoAsync(Convert.ToInt32(Request.Query["id"])));
+            return Ok(await _repository.DeleteClientInfoAsync(Convert.ToInt32(Request.RouteValues["id"])));
         }
 
         /// <summary>
