@@ -71,10 +71,19 @@ namespace WebApi.Aggregator.services
             }
         }
 
-        public static T CallServiceWithCredentials<T>(string urlGrpc, CallCredentials credentials, Func<GrpcChannel, T> func)
+        public static T CallServiceWithCredentials<T>(string urlGrpc, string token, Func<GrpcChannel, T> func)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
+
+            CallCredentials credentials = CallCredentials.FromInterceptor((context, metadata) =>
+            {
+                // В тело ответа будет записываться токен
+                if (!string.IsNullOrEmpty(token))
+                    metadata.Add("Authorization", $"Bearer {token}");
+
+                return Task.CompletedTask;
+            });
 
             var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
             {
@@ -96,10 +105,19 @@ namespace WebApi.Aggregator.services
             }
         }
 
-        public static async Task<TResponse> CallServiceWithCredentialsAsync<TResponse>(string urlGrpc, CallCredentials credentials, Func<GrpcChannel, Task<TResponse>> func)
+        public static async Task<TResponse> CallServiceWithCredentialsAsync<TResponse>(string urlGrpc, string token, Func<GrpcChannel, Task<TResponse>> func)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
+
+            CallCredentials credentials = CallCredentials.FromInterceptor((context, metadata) =>
+            {
+                // В тело ответа будет записываться токен
+                if (!string.IsNullOrEmpty(token))
+                    metadata.Add("Authorization", $"Bearer {token}");
+
+                return Task.CompletedTask;
+            });
 
             var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
             {
@@ -121,10 +139,19 @@ namespace WebApi.Aggregator.services
             }
         }
 
-        public static async Task CallServiceWithCredentialsAsync(string urlGrpc, CallCredentials credentials, Func<GrpcChannel, Task> func)
+        public static async Task CallServiceWithCredentialsAsync(string urlGrpc, string token, Func<GrpcChannel, Task> func)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
+
+            CallCredentials credentials = CallCredentials.FromInterceptor((context, metadata) =>
+            {
+                // В тело ответа будет записываться токен
+                if (!string.IsNullOrEmpty(token))
+                    metadata.Add("Authorization", $"Bearer {token}");
+
+                return Task.CompletedTask;
+            });
 
             var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
             {
