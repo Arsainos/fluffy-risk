@@ -1,0 +1,43 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Identity.API";
+
+package IdentityApi;
+
+// The accounts service definition
+service ClientsGrpc {
+  rpc GetAccountById (AccountRequest) returns (AccountResponse);
+  rpc GetAccounts (AccountRequestWithNoParameters) returns (ListAccountResponse);
+  rpc Login (AccountLoginRequest) returns (AccountTokenResponse);
+}
+
+// The request message containing the account id
+message AccountRequest {
+  int32 accountId = 1;
+}
+
+// The request message for login
+message AccountLoginRequest {
+    string accountName = 1;
+    string accountPassword = 2;
+}
+
+// The response message containing account info
+message AccountResponse {
+  int32 accountId = 1;
+  string accountName = 2;
+  repeated string accountRole = 3;
+}
+
+// List of Accounts
+message ListAccountResponse {
+    repeated AccountResponse Accounts = 1;
+}
+
+// The response message for login action
+message AccountTokenResponse {
+    string token = 1;
+}
+
+// with no params request
+message AccountRequestWithNoParameters {}
