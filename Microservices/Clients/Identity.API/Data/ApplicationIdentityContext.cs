@@ -28,10 +28,10 @@ namespace Identity.API.Data
             // Добавление пользователей
             var users = new[]
             {
-                (id: 1, Name: "IvanovII", Password:"111", Roles: new List<string> { "Admin" }),
-                (id: 2, Name: "PetrovPP", Password:"222", Roles: new List<string> { "Manager" }),
-                (id: 3, Name: "SidorovSS", Password:"333", Roles: new List<string> { "User" }),
-                (id: 4, Name: "SemionovSS", Password:"444", Roles: new List<string> { "Admin", "Manager" })
+                (id: "1", Name: "IvanovII", Password:"111", Roles: new List<string> { "Admin" }),
+                (id: "2", Name: "PetrovPP", Password:"222", Roles: new List<string> { "Manager" }),
+                (id: "3", Name: "SidorovSS", Password:"333", Roles: new List<string> { "User" }),
+                (id: "4", Name: "SemionovSS", Password:"444", Roles: new List<string> { "Admin", "Manager" })
             };
 
             foreach (var user in users)
@@ -39,7 +39,7 @@ namespace Identity.API.Data
                 if (await userManager.FindByNameAsync(user.Name) != null)
                     continue;
 
-                ApplicationUser applicationUser = new ApplicationUser { UserName = user.Name, PasswordHash = user.Password };
+                ApplicationUser applicationUser = new ApplicationUser {Id = user.id, UserName = user.Name, PasswordHash = user.Password };
                 IdentityResult result = await userManager.CreateAsync(applicationUser);
 
                 if (result.Succeeded)
