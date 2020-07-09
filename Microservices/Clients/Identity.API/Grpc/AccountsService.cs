@@ -1,4 +1,6 @@
 ﻿using Grpc.Core;
+using Identity.API.Models;
+using Identity.API.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,14 @@ namespace Identity.API.Grpc
     public class AccountsService : AccountsGrpc.AccountsGrpcBase
     {
         private readonly ILogger<AccountsService> _logger;
+        private readonly ILoginService<ApplicationUser> _loginService;
+        private readonly ITokenService<ApplicationUser> _tokenService;
 
-        public AccountsService(ILogger<AccountsService> logger)
+        public AccountsService(ILogger<AccountsService> logger, ILoginService<ApplicationUser> loginService, ITokenService<ApplicationUser> tokenService)
         {
             _logger = logger;
+            _loginService = loginService;
+            _tokenService = tokenService;
         }
 
         public override Task<AccountResponse> GetAccountById(AccountRequest request, ServerCallContext context)
