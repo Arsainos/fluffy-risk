@@ -8,6 +8,7 @@ using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using Grpc.Core;
 using Clients.API;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApi.Aggregator.services
 {
@@ -16,17 +17,19 @@ namespace WebApi.Aggregator.services
         public readonly HttpClient _httpClient;
         private readonly ILogger<ClientsService> _logger;
         private readonly string _connection;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ClientsService(HttpClient httpClient, ILogger<ClientsService> logger)
+        public ClientsService(HttpClient httpClient, ILogger<ClientsService> logger, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _logger = logger;
             _connection = Config.UrlsConfig.GrpcClients;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<int> CreateClient(ClientInfo clientInfo)
         {
-            return await GrpcCallerService.CallServiceAsync(_connection, async channel =>
+            return await GrpcCallerService.CallServiceWithCredentialsAsync(_connection, _httpContextAccessor.HttpContext.Request.Headers["Authorization"], async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);
@@ -40,7 +43,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<bool> DeleteClient(int clientId)
         {
-            return await GrpcCallerService.CallServiceAsync(_connection, async channel =>
+            return await GrpcCallerService.CallServiceWithCredentialsAsync(_connection, _httpContextAccessor.HttpContext.Request.Headers["Authorization"], async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
@@ -54,7 +57,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<ClientInfo> GetClientById(int clientId)
         {
-            return await GrpcCallerService.CallServiceAsync(_connection, async channel =>
+            return await GrpcCallerService.CallServiceWithCredentialsAsync(_connection, _httpContextAccessor.HttpContext.Request.Headers["Authorization"], async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientId);
@@ -68,7 +71,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<IEnumerable<ClientInfo>> GetClients()
         {
-            return await GrpcCallerService.CallServiceAsync(_connection, async channel =>
+            return await GrpcCallerService.CallServiceWithCredentialsAsync(_connection, _httpContextAccessor.HttpContext.Request.Headers["Authorization"], async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc get clients");
@@ -82,7 +85,7 @@ namespace WebApi.Aggregator.services
 
         public async Task<ClientInfo> UpdateClientInfo(ClientInfo clientInfo)
         {
-            return await GrpcCallerService.CallServiceAsync(_connection, async channel =>
+            return await GrpcCallerService.CallServiceWithCredentialsAsync(_connection, _httpContextAccessor.HttpContext.Request.Headers["Authorization"], async channel =>
             {
                 var client = new ClientsGrpc.ClientsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", clientInfo);

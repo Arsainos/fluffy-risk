@@ -37,6 +37,7 @@ namespace WebApi.Aggregator
             services.AddCustomMvc()
                 .AddApplicationServices();
 
+            services.AddHttpContextAccessor();
             services.AuthService(_securityKey);
         }
 
