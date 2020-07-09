@@ -13,7 +13,7 @@ service AccountsGrpc {
 
 // The request message containing the account id
 message AccountRequest {
-  int32 accountId = 1;
+  string accountId = 1;
 }
 
 // The request message for login
@@ -24,7 +24,7 @@ message AccountLoginRequest {
 
 // The response message containing account info
 message AccountResponse {
-  int32 accountId = 1;
+  string accountId = 1;
   string accountName = 2;
   repeated string accountRole = 3;
 }
