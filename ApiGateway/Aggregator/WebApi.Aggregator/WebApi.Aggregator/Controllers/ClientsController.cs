@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Aggregator.services;
 using WebApi.Aggregator.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Aggregator.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClientsController : ControllerBase
     {
         private readonly IClientsService _clients;

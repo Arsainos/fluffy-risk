@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Aggregator.Models;
@@ -45,6 +46,7 @@ namespace WebApi.Aggregator.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(AccountInfo), 200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult<AccountInfo>> GetAccountInfoByIdAsync()
         {
             return await _accounts.GetAccountById(RouteData.Values["id"].ToString());
@@ -81,6 +83,7 @@ namespace WebApi.Aggregator.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<AccountInfo>), 200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<IEnumerable<AccountInfo>> GetAccounts()
         {
             return await _accounts.GetAccounts();
@@ -114,6 +117,7 @@ namespace WebApi.Aggregator.Controllers
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<string>> AccountLoginAsync([FromBody]AccountLoginModel loginModel)
         {
             return await _accounts.Login(loginModel.Name, loginModel.Password);
