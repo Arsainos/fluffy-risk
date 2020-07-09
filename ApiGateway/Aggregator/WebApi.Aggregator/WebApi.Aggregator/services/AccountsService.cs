@@ -55,7 +55,7 @@ namespace WebApi.Aggregator.services
             return await GrpcCallerService.CallServiceAsync(_connection, async channel =>
             {
                 var client = new AccountsGrpc.AccountsGrpcClient(channel);
-                _logger.LogInformation("grpc client created, request = { @id}", id);
+                _logger.LogInformation("grpc client created");
 
                 var response = await client.LoginAsync(new AccountLoginRequest() { AccountName = Name, AccountPassword = Password });
                 _logger.LogDebug("grpc response {@response}", response);
