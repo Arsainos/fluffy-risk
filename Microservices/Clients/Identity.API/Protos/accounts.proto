@@ -5,7 +5,7 @@ option csharp_namespace = "Identity.API";
 package IdentityApi;
 
 // The accounts service definition
-service ClientsGrpc {
+service AccountsGrpc {
   rpc GetAccountById (AccountRequest) returns (AccountResponse);
   rpc GetAccounts (AccountRequestWithNoParameters) returns (ListAccountResponse);
   rpc Login (AccountLoginRequest) returns (AccountTokenResponse);
