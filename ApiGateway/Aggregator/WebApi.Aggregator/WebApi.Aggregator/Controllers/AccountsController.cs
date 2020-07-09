@@ -105,8 +105,7 @@ namespace WebApi.Aggregator.Controllers
         ///         [string]: [{token}]
         ///     }
         /// </remarks>
-        /// <param name="Name">Имя пользователя</param>
-        /// <param name="Password">Секретный пароль</param>
+        /// <param name="loginModel">Модель данных для атворизации и получения токена</param>
         /// <returns>Токен для работы для конкретного пользователя</returns>
         /// <response code="200">Успешная авторизация на сервисе и получение токена</response>
         /// <response code="400">Ошибка при авторизации и получении токена</response>
@@ -115,9 +114,9 @@ namespace WebApi.Aggregator.Controllers
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<ActionResult<string>> AccountLoginAsync([FromBody]string Name, [FromBody] string Password)
+        public async Task<ActionResult<string>> AccountLoginAsync([FromBody]AccountLoginModel loginModel)
         {
-            return await _accounts.Login(Name, Password);
+            return await _accounts.Login(loginModel.Name, loginModel.Password);
         }
     }
 }
