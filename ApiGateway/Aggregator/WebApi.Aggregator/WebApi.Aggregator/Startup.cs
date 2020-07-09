@@ -86,6 +86,7 @@ public static class ServiceCollectionExtensions
         //register http services
 
         services.AddHttpClient<IClientsService, ClientsService>();
+        services.AddHttpClient<IAccountsService, AccountsService>();
 
         return services;
     }
