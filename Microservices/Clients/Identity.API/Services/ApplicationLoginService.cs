@@ -29,6 +29,16 @@ namespace Identity.API.Services
             return await _userManager.FindByNameAsync(account);
         }
 
+        public async Task<IList<string>> GetUserRoles(ApplicationUser user)
+        {
+            return await _userManager.GetRolesAsync(user);
+        }
+
+        public async Task<IList<ApplicationUser>> GetUsers()
+        {
+            return await Task.FromResult(_userManager.Users.ToList());
+        }
+
         public Task SignIn(ApplicationUser user)
         {
             return _signInManager.SignInAsync(user, true);
