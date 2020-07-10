@@ -27,12 +27,13 @@ steps:
     projects: '**/*.csproj'
     workingDirectory: $(Build.SourcesDirectory)    
 
-- task: DotNetCoreCLI@2
+- task: UseDotNet@2
   inputs:
-    command: 'build'
-    projects: '$(Build.SourcesDirectory)/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'    
+    packageType: 'sdk'
+    version: 
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'test'
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'    
