@@ -52,4 +52,6 @@ steps:
   displayName: Run UnitTest
   inputs:
     command: 'test'
-    projects: '**/Clients.API.csproj'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    projects: '**/Clients.UnitTests.csproj'
+    publishTestResults: true
