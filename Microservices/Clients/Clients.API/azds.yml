@@ -25,7 +25,7 @@ steps:
   inputs:
     command: restore
     projects: '**/Clients.API.csproj'
-    workingDirectory: $(Build.SourcesDirectory)    
+    workingDirectory: $(Build.SourcesDirectory)
 
 - task: UseDotNet@2
   inputs:
@@ -36,4 +36,15 @@ steps:
   inputs:
     command: 'build'
     projects: '**/Clients.API.csproj'
-    arguments: '--configuration $(buildConfiguration)'    
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/Clients.UnitTests.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/Clients.API.csproj'
