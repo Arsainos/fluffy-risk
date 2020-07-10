@@ -14,6 +14,7 @@ variables:
 
 steps:
 - task: NuGetCommand@2
+  displayName: Install nuget
   inputs:
     command: 'restore'
     restoreSolution: '**/packages.config'
@@ -28,23 +29,27 @@ steps:
     workingDirectory: $(Build.SourcesDirectory)
 
 - task: UseDotNet@2
+  displayName: Install latest net core sdk
   inputs:
     packageType: 'sdk'
     version: 
 
 - task: DotNetCoreCLI@2
+  displayName: Build Client.API project
   inputs:
     command: 'build'
     projects: '**/Clients.API.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: Build UnitTest project
   inputs:
     command: 'build'
     projects: '**/Clients.UnitTests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: Run UnitTest
   inputs:
     command: 'test'
     projects: '**/Clients.API.csproj'
