@@ -24,7 +24,7 @@ steps:
   displayName: Restore nuget packages
   inputs:
     command: restore
-    projects: '**/*.csproj'
+    projects: '**/Clients.API.csproj'
     workingDirectory: $(Build.SourcesDirectory)    
 
 - task: UseDotNet@2
@@ -35,5 +35,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/*.csproj'
+    projects: '**/Clients.API.csproj'
     arguments: '--configuration $(buildConfiguration)'    
