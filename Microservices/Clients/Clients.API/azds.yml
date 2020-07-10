@@ -21,9 +21,17 @@ steps:
     restoreDirectory: '..\packages'
 
 - task: DotNetCoreCLI@2
+  displayName: Restore nuget packages
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+    workingDirectory: $(Build.SourcesDirectory)    
+
+- task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
+    projects: '$(Build.SourcesDirectory)/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'    
 
 - task: DotNetCoreCLI@2
   inputs:
