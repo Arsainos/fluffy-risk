@@ -1,0 +1,12 @@
+version: "3.4"
+
+services: 
+    clients-api:
+        build:
+            context: ./Microservices
+            dockerfile: Clients/Clients.API/Dockerfile
+
+    identity-api:
+        build:
+            context: ./Microservices
+            dockerfile: Identity/Identity.API/Dockerfile
