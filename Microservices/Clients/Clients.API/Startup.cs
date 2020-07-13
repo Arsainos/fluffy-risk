@@ -119,7 +119,7 @@ namespace Clients.API
 
                 var basePath = AppContext.BaseDirectory;
 
-                c.IncludeXmlComments(basePath + "\\Clients.API.xml");
+                c.IncludeXmlComments(basePath + "Clients.API.xml");
             });
 
             return services;

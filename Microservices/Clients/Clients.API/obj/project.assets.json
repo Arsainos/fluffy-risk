@@ -7134,8 +7134,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Arsai\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Arsai\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -7146,13 +7145,9 @@
       "packagesPath": "C:\\Users\\Arsai\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Arsai\\git\\Arsainos\\fluffy-risk\\Microservices\\Clients\\Clients.API\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
         "C:\\Users\\Arsai\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
