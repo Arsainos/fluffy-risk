@@ -152,7 +152,7 @@ namespace Identity.API
 
                 var basePath = AppContext.BaseDirectory;
 
-                c.IncludeXmlComments(basePath + "\\Identity.API.xml");
+                c.IncludeXmlComments(basePath + "Identity.API.xml");
             });
 
             return services;
