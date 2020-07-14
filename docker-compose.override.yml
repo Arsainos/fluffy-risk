@@ -7,7 +7,7 @@ services:
             - ASPNETCORE_URLS=http://0.0.0.0:80
             - GRPC_PORT=81
             - PORT=80
-          ports:
+        ports:
             - "5103:80"
             - "9103:81"
 
