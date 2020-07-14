@@ -7,8 +7,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["WebApi.Aggregator/WebApi.Aggregator.csproj", "WebApi.Aggregator/"]
-RUN dotnet restore "WebApi.Aggregator/WebApi.Aggregator.csproj"
+COPY ["Aggregator/WebApi.Aggregator/WebApi.Aggregator/WebApi.Aggregator.csproj", "Aggregator/WebApi.Aggregator/WebApi.Aggregator/"]
+RUN dotnet restore "Aggregator/WebApi.Aggregator/WebApi.Aggregator/WebApi.Aggregator.csproj"
 COPY . .
 WORKDIR "/src/WebApi.Aggregator"
 RUN dotnet build "WebApi.Aggregator.csproj" -c Release -o /app/build
