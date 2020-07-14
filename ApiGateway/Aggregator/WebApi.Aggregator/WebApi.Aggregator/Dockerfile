@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["Aggregator/WebApi.Aggregator/WebApi.Aggregator/WebApi.Aggregator.csproj", "Aggregator/WebApi.Aggregator/WebApi.Aggregator/"]
 RUN dotnet restore "Aggregator/WebApi.Aggregator/WebApi.Aggregator/WebApi.Aggregator.csproj"
 COPY . .
-WORKDIR "/src/WebApi.Aggregator"
+WORKDIR "/src/Aggregator/WebApi.Aggregator/WebApi.Aggregator"
 RUN dotnet build "WebApi.Aggregator.csproj" -c Release -o /app/build
 
 FROM build AS publish
