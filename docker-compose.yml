@@ -10,3 +10,15 @@ services:
         build:
             context: ./Microservices
             dockerfile: Identity/Identity.API/Dockerfile
+
+    webapigw:
+        image: envoyproxy/envoy:v1.15.0
+
+    webapiagg:
+        build:
+            context: ./ApiGateway
+            dockerfile: Aggregator/WebApi.Aggregator/WebApi.Aggregator/Dockerfile
+        depends_on: 
+            - clients-api
+            - identity-api
+            - webapigw
