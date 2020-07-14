@@ -5,8 +5,17 @@ services:
         build:
             context: ./Microservices
             dockerfile: Clients/Clients.API/Dockerfile
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+        ports: 
+            - "32769:80"
+            - "32770:443"
 
     identity-api:
         build:
             context: ./Microservices
             dockerfile: Identity/Identity.API/Dockerfile
+        ports: 
+            - "32771:80"
+            - "32772:443"
