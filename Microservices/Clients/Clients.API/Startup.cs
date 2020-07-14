@@ -41,6 +41,16 @@ namespace Clients.API
 
             services.AddSingleton<IClientsRepository, DictionaryClientsRepository>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             services.AddControllers();
             services.AddSwagger(Configuration);
             services.AuthService(Configuration, _securityKey);
@@ -63,6 +73,7 @@ namespace Clients.API
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
