@@ -2,12 +2,14 @@ version: '3.4'
 
 services: 
     clients-api:
-        environment: 
+        environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=https://+:443;http://+:80
-        ports: 
-            - "32769:80"
-            - "32770:443"
+            - ASPNETCORE_URLS=http://0.0.0.0:80
+            - GRPC_PORT=81
+            - PORT=80
+          ports:
+            - "5103:80"
+            - "9103:81"
 
     identity-api:
         ports: 
