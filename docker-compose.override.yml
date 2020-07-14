@@ -1,0 +1,15 @@
+version: '3.4'
+
+services: 
+    clients-api:
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+        ports: 
+            - "32769:80"
+            - "32770:443"
+
+    identity-api:
+        ports: 
+            - "32771:80"
+            - "32772:443"
