@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Aggregator.Config;
 using WebApi.Aggregator.services;
 
 namespace WebApi.Aggregator
@@ -44,7 +45,7 @@ namespace WebApi.Aggregator
                     .AllowCredentials());
             });
 
-            services.AddCustomMvc()
+            services.AddCustomMvc(Configuration)
                 .AddApplicationServices();
 
             services.AddHttpContextAccessor();
@@ -84,8 +85,11 @@ namespace WebApi.Aggregator
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCustomMvc(this IServiceCollection services)
+    public static IServiceCollection AddCustomMvc(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptions();
+        services.Configure<UrlsConfig>(configuration.GetSection("urls"));
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo

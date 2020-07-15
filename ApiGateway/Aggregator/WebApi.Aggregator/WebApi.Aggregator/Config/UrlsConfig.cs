@@ -7,7 +7,9 @@ namespace WebApi.Aggregator.Config
 {
     public class UrlsConfig
     {
-        public static string GrpcClients => "https://localhost:5001";
-        public static string GrpcAccounts => "https://localhost:5002";
+        public string Clients { get; set; }
+        public string Accounts { get; set; }
+        public string ClientsGrpc { get; set; }
+        public string AccountsGrpc { get; set; }
     }
 }
