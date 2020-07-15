@@ -47,7 +47,17 @@ namespace Identity.API
 
             services.AddTransient<ILoginService<ApplicationUser>, ApplicationLoginService>();
             services.AddTransient<ITokenService<ApplicationUser>, TokenService>();
-       
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             services.AddControllers();
             services.AddSwagger();            
         }
@@ -68,6 +78,8 @@ namespace Identity.API
             });
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
             app.UseAuthorization();
 
