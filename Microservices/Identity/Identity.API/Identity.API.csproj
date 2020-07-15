@@ -12,6 +12,11 @@
     <DocumentationFile>bin\Identity.API.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Identity.API.xml</DocumentationFile>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Protobuf Include="Protos\accounts.proto" GrpcServices="Server" />
   </ItemGroup>
