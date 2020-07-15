@@ -12,6 +12,11 @@ services:
             - "9103:81"
 
     identity-api:
-        ports: 
-            - "32771:80"
-            - "32772:443"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://0.0.0.0:80
+            - GRPC_PORT=81
+            - PORT=80
+        ports:
+            - "5101:80"
+            - "9101:81"
