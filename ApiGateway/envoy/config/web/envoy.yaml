@@ -1,12 +1,137 @@
 admin:
-    access_log_path: "/dev/null"
-    address:
-      socket_address:
-        address: 0.0.0.0
-        port_value: 8001
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001
 static_resources:
   listeners:
-  - address:
-      socket_address:
+  - name: listener_http
+    address:
+      socket_address: 
         address: 0.0.0.0
-        port_value: 80        
+        port_value: 80
+    filter_chains:
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: auto
+          stat_prefix: ingress_http
+          route_config:
+            virtual_hosts:
+            - name: backend
+              domains:
+              - "*"
+              routes:
+              - match:
+                  prefix: "/"
+                redirect:
+                  path_redirect: "/"
+                  https_redirect: true
+          http_filters:
+          - name: envoy.router
+            config: {}    
+  - name: listener_https
+    address:
+      socket_address: 
+        address: 0.0.0.0 
+        port_value: 443
+    filter_chains:
+    - filters:
+      - name: envoy.http_connection_manager
+        config:
+          codec_type: auto
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: backend
+              domains:
+              - "*"
+              routes:
+              - name: "c-short"
+                match:
+                  prefix: "/c/"
+                route:
+                  auto_host_rewrite: true
+                  prefix_rewrite: "/clients-api/"
+                  cluster: clients
+              - name: "c-long"
+                match:
+                  prefix: "/clients-api/"
+                route:
+                  auto_host_rewrite: true
+                  cluster: clients
+              - name: "a-short"
+                match:
+                  prefix: "/a/"
+                route:
+                  auto_host_rewrite: true
+                  prefix_rewrite: "/accounts-api/"
+                  cluster: accounts
+              - name: "a-long"
+                match:
+                  prefix: "/accounts-api/"
+                route:
+                  auto_host_rewrite: true
+                  cluster: accounts              
+              - name: "agg"
+                match:
+                  prefix: "/"
+                route:
+                  auto_host_rewrite: true
+                  prefix_rewrite: "/"
+                  cluster: webapiagg
+          http_filters:
+          - name: envoy.router
+            config: {}
+          access_log:
+          - name: envoy.file_access_log
+            filter:
+              not_health_check_filter: {}
+            config:
+              json_format:
+                time: "%START_TIME%"
+                protocol: "%PROTOCOL%"
+                duration: "%DURATION%"
+                request_method: "%REQ(:METHOD)%"
+                request_host: "%REQ(HOST)%"
+                path: "%REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%"
+                response_flags: "%RESPONSE_FLAGS%"
+                route_name: "%ROUTE_NAME%"
+                upstream_host: "%UPSTREAM_HOST%"
+                upstream_cluster: "%UPSTREAM_CLUSTER%"
+                upstream_local_address: "%UPSTREAM_LOCAL_ADDRESS%"
+              path: "/tmp/access.log"
+        tls_context:
+          common_tls_context:
+            tls_certificates:
+              - certificate_chain:
+                  filename: "/etc/envoy/certs/fluffy.crt"
+                private_key:
+                  filename: "/etc/envoy/certs/fluffy.rsa"
+  clusters:
+  - name: webapiagg
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: webapiagg
+        port_value: 443
+  - name: clients
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: clients-api
+        port_value: 443
+  - name: accounts
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: accounts-api
+        port_value: 443

@@ -20,7 +20,7 @@ namespace Identity.API
         public static async Task Main(string[] args)
         {
             var configuration = GetConfiguration();
-            var host = BuildWebHost(configuration, args);
+            var host = BuildWebHost(configuration,args);
 
             using (var scope = host.Services.CreateScope())
             {
@@ -34,9 +34,19 @@ namespace Identity.API
 
         // Additional configuration is required to successfully run gRPC on macOS.
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-        private static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
+        //public static IHostBuilder CreateHostBuilder(string[] args) =>
+        //    Host.CreateDefaultBuilder(args)
+        //        .ConfigureWebHostDefaults(webBuilder =>
+        //        {
+        //            webBuilder.UseStartup<Startup>();
+        //        });
+
+        // Additional configuration is required to successfully run gRPC on macOS.
+        // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+        public static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .CaptureStartupErrors(false)
+                .UseKestrel()
                 .ConfigureKestrel(options =>
                 {
                     var ports = GetDefinedPorts(configuration);
@@ -48,6 +58,7 @@ namespace Identity.API
                     options.Listen(IPAddress.Any, ports.grpcPort, listenOptions =>
                     {
                         listenOptions.Protocols = HttpProtocols.Http2;
+                        listenOptions.UseHttps(@"Certificates\fluffyapp.pfx", "lakonos88");
                     });
 
                 })

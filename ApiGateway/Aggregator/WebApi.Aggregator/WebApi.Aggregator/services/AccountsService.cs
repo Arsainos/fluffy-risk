@@ -34,7 +34,14 @@ namespace WebApi.Aggregator.services
             {
                 var client = new AccountsGrpc.AccountsGrpcClient(channel);
                 _logger.LogInformation("grpc client created, request = { @id}", id);
-
+                try
+                {
+                    var response1 = await client.GetAccountByIdAsync(new AccountRequest() { AccountId = id });
+                }
+                catch (Exception ex)
+                {
+                    var a = ex;
+                }
                 var response = await client.GetAccountByIdAsync(new AccountRequest() { AccountId = id });
                 _logger.LogDebug("grpc response {@response}", response);
 
@@ -62,11 +69,18 @@ namespace WebApi.Aggregator.services
             {
                 var client = new AccountsGrpc.AccountsGrpcClient(channel);
                 _logger.LogInformation("grpc client created");
+                _logger.LogInformation(_urls.AccountsGrpc);
+                try
+                {
+                    var response = await client.LoginAsync(new AccountLoginRequest() { AccountName = Name, AccountPassword = Password });
+                    _logger.LogDebug("grpc response {@response}", response);
+                }
+                catch(Exception ex)
+                {
+                    var c = ex;
+                }
 
-                var response = await client.LoginAsync(new AccountLoginRequest() { AccountName = Name, AccountPassword = Password });
-                _logger.LogDebug("grpc response {@response}", response);
-
-                return response.Token;
+                return ""; //response.Token;
             });
         }
 

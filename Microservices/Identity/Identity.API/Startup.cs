@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Identity.API.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Identity.API
 {
@@ -70,12 +71,20 @@ namespace Identity.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity API v1");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseHttpsRedirection();
+            app.UseHsts();
 
             app.UseRouting();
             app.UseCors("CorsPolicy");

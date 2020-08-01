@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -64,6 +65,11 @@ namespace Clients.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -71,7 +77,9 @@ namespace Clients.API
                 c.RoutePrefix = string.Empty;
             });
 
+            app.UseHsts();
             app.UseHttpsRedirection();
+
             app.UseRouting();
             app.UseCors("CorsPolicy");
 

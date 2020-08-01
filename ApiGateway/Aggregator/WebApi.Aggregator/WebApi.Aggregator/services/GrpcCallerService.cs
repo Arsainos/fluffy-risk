@@ -3,6 +3,7 @@ using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace WebApi.Aggregator.services
@@ -14,7 +15,15 @@ namespace WebApi.Aggregator.services
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
 
-            var channel = GrpcChannel.ForAddress(urlGrpc);
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
+            {
+                HttpHandler = httpHandler
+            });
 
             try
             {
@@ -36,7 +45,12 @@ namespace WebApi.Aggregator.services
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
 
-            var channel = GrpcChannel.ForAddress(urlGrpc);
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions { HttpHandler = httpHandler });
 
             try
             {
@@ -58,7 +72,15 @@ namespace WebApi.Aggregator.services
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
 
-            var channel = GrpcChannel.ForAddress(urlGrpc);
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
+            {
+                HttpHandler = httpHandler
+            });
 
             try
             {
@@ -85,9 +107,15 @@ namespace WebApi.Aggregator.services
                 return Task.CompletedTask;
             });
 
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
             var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
             {
-                Credentials = ChannelCredentials.Create(new SslCredentials(), credentials)
+                Credentials = ChannelCredentials.Create(new SslCredentials(), credentials),
+                HttpHandler = httpHandler
             });
 
             try
@@ -119,9 +147,15 @@ namespace WebApi.Aggregator.services
                 return Task.CompletedTask;
             });
 
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
             var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
             {
-                Credentials = ChannelCredentials.Create(new SslCredentials(), credentials)
+                Credentials = ChannelCredentials.Create(new SslCredentials(), credentials),
+                HttpHandler = httpHandler
             });
 
             try
@@ -153,9 +187,15 @@ namespace WebApi.Aggregator.services
                 return Task.CompletedTask;
             });
 
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
             var channel = GrpcChannel.ForAddress(urlGrpc, new GrpcChannelOptions
             {
-                Credentials = ChannelCredentials.Create(new SslCredentials(), credentials)
+                Credentials = ChannelCredentials.Create(new SslCredentials(), credentials),
+                HttpHandler = httpHandler
             });
 
             try

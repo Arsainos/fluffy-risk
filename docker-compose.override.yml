@@ -4,19 +4,69 @@ services:
     clients-api:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://0.0.0.0:80
+            # - ASPNETCORE_URLS=https://+:443;http://+:80
             - GRPC_PORT=81
             - PORT=80
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=lakonos88
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=C:\https\fluffyapp.pfx
+        volumes: 
+            - ~\.aspnet\https:C:\https
         ports:
             - "5103:80"
-            - "9103:81"
+            - "9183:81"
+        networks: 
+            default: 
+                ipv4_address: 172.21.16.3
+
 
     identity-api:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=http://0.0.0.0:80
+            # - ASPNETCORE_URLS=http://+:80
             - GRPC_PORT=81
             - PORT=80
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=lakonos88
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=C:\https\fluffyapp.pfx
         ports:
             - "5101:80"
-            - "9101:81"
+            - "5181:81"
+        volumes: 
+            - ~\.aspnet\https:C:\https
+        networks: 
+            default: 
+                ipv4_address: 172.21.16.4
+
+    webapiagg:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+            - urls__Clients=https://172.21.16.3
+            - urls__Accounts=https://172.21.16.4
+            - urls__ClientsGrpc=https://172.21.16.3
+            - urls__AccountsGrpc=https://172.21.16.4:81
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=lakonos88
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=\https\fluffyapp.pfx
+        volumes: 
+            - ~\.aspnet\https:C:\https
+        ports:
+            - "5120:80"
+            - "9120:443"
+        networks: 
+            default: 
+                ipv4_address: 172.21.16.2
+            
+    # webapigw:
+    #     volumes:
+    #         - ./ApiGateway/envoy/config/web:/etc/envoy
+    #         - ~/.aspnet/https:/etc/envoy/certs
+    #     ports:
+    #         - "5201:80"
+    #         - "5202:443"
+    #         - "15201:8001"  
+
+networks:
+    default:
+        external:
+            name: fluffy-risk_default
+    
+    

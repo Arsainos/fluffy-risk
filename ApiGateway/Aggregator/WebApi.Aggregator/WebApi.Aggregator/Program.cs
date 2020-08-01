@@ -49,6 +49,7 @@ namespace WebApi.Aggregator
                     options.Listen(IPAddress.Any, ports.grpcPort, listenOptions =>
                     {
                         listenOptions.Protocols = HttpProtocols.Http2;
+                        listenOptions.UseHttps(@"Certificates\fluffyapp.pfx", "lakonos88");
                     });
 
                 })
@@ -69,7 +70,7 @@ namespace WebApi.Aggregator
 
         private static (int httpPort, int grpcPort) GetDefinedPorts(IConfiguration config)
         {
-            var grpcPort = config.GetValue("GRPC_PORT", 5001);
+            var grpcPort = config.GetValue("GRPC_PORT", 443);
             var port = config.GetValue("PORT", 80);
             return (port, grpcPort);
         }

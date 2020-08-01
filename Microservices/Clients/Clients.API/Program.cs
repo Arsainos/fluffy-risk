@@ -17,7 +17,6 @@ namespace Clients.API
         public static int Main(string[] args)
         {
             var configuration = GetConfiguration();
-
             try
             {
                 var host = BuildWebHost(configuration, args);
@@ -26,7 +25,7 @@ namespace Clients.API
 
                 return 0;
             }
-            catch 
+            catch
             {
                 return 1;
             }
@@ -34,7 +33,7 @@ namespace Clients.API
 
         // Additional configuration is required to successfully run gRPC on macOS.
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-        private static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
+        public static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .CaptureStartupErrors(false)
                 .ConfigureKestrel(options =>
@@ -48,6 +47,7 @@ namespace Clients.API
                     options.Listen(IPAddress.Any, ports.grpcPort, listenOptions =>
                     {
                         listenOptions.Protocols = HttpProtocols.Http2;
+                        listenOptions.UseHttps(@"Certificates\fluffyapp.pfx", "lakonos88");
                     });
 
                 })
